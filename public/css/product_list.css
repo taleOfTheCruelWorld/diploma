@@ -1,0 +1,93 @@
+:root {
+    --color1: #52339A;
+    --color2: #05B1B1;
+    --button-active: #08dfdf;
+}
+
+.product-list {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 30px;
+}
+
+.product-list .item {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    gap: 20px;
+
+}
+
+.product-list .item .item-image {
+    width: 200px;
+    height: 200px;
+}
+
+.product-list .item .item-image img {
+    width: 200px;
+    height: 200px;
+}
+
+.product-list .item .item-data {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.product-list .item .item-data a {
+    text-decoration: none;
+    color: var(--color1);
+}
+
+.product-list .item .item-data a:hover {
+    text-decoration: underline;
+}
+
+.product-list .item .actions {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+    height: 100%;
+    margin-left: auto;
+}
+
+.product-list .item .actions button {
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+}
+
+.add-to-favorite {
+    background-color: var(--color1);
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    width: fit-content;
+    transition: .1s;
+    font-size: 1.25rem;
+}
+
+.add-to-favorite:hover {
+    background-color: var(--color2);
+}
+
+.add-to-cart {
+    background-color: var(--color2);
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    width: fit-content;
+    transition: .1s;
+    font-size: 1.25rem;
+}
+
+.add-to-cart:hover {
+    background-color: var(--color1);
+}
+
+.price{
+    font-size: 1.25rem;
+}

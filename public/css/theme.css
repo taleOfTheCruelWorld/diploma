@@ -1,0 +1,68 @@
+:root {
+    --color1: #52339A;
+    --color2: #05B1B1;
+    --button-active: #08dfdf;
+}
+
+@font-face {
+    font-family: 'Sans-serif';
+    src: url('../fonts/microsoftsansserif.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Sans-serif';
+}
+
+body {
+    color: var(--color2)
+}
+
+.content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+}
+
+.meta {}
+
+.data {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.aside {
+    width: 300px;
+}
+
+.main {
+    flex-grow: 1;
+}
+
+header {}
+
+nav {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--color1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1.125rem;
+    transition: .1s;
+}
+
+nav a:hover {
+    background-color: rgb(241, 241, 241);
+    color: var(--color2);
+}

@@ -1,0 +1,17 @@
+.container{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.container div{
+    font-size: 1.25rem;
+}
+.container form{
+    gap: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+}

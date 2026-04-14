@@ -1,0 +1,44 @@
+:root {
+    --color1: #52339A;
+    --color2: #05B1B1;
+    --button-active: #08dfdf;
+}
+
+
+.favorite-items {
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.product {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 30px;
+}
+
+.product .image {
+    width: 200px;
+    height: 200px;
+}
+
+.product .image img {
+    width: 200px;
+    height: 200px;
+}
+
+.product .actions form button {
+    background-color: var(--color1);
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    width: fit-content;
+    transition: .1s;
+    font-size: 1.25rem;
+}
+
+.product .actions form button:hover {
+    background-color: var(--color2);
+}

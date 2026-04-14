@@ -1,0 +1,96 @@
+:root {
+    --color1: #52339A;
+    --color2: #05B1B1;
+    --button-active: #08dfdf;
+}
+
+.cart {
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 30px;
+}
+
+
+.cart-items {
+    flex-grow: 1;
+    display: flex;
+
+    flex-flow: column nowrap;
+    gap: 20px;
+}
+
+.product {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 30px;
+}
+
+.product .image {
+    width: 200px;
+    height: 200px;
+}
+
+.product .image img {
+    width: 200px;
+    height: 200px;
+}
+
+.product .actions {
+    gap: 10px;
+}
+
+.product .actions form {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
+.product .actions form button {
+    background-color: var(--color1);
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    width: fit-content;
+    transition: .1s;
+    font-size: 1.25rem;
+}
+
+.product .actions {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.product .actions form button:hover {
+    background-color: var(--color2);
+}
+
+.make-order-form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+.make-order-form form{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
+.make-order-form form .input-div {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 6px;
+    justify-content: center;
+}
+
+.total-cost{
+    font-size: 1.5rem;
+}
