@@ -2,6 +2,14 @@
 @section('content')
     <div class="container">
     <h1>Свойства продуктов категории {{ $category->name }}</h1>
+      <div class="search">
+            <form action="{{ route('category-product-properties.search', ['category'=>$category]) }}" method="get" class="search_form">
+                <div class="input_div">
+                    <input type="text" name="q" placeholder="Имя или ID" @if(isset($q))value="{{ $q }}"@endif>
+                </div>
+                <input type="submit" value="Найти">
+            </form>
+        </div>
     <nav>
         <a href="{{ route('category-product-properties.create', ['category' => $category]) }}">Создать свойство для этой
             категории</a>

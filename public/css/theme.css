@@ -19,32 +19,14 @@ body {
     color: var(--color2)
 }
 
-.content {
-    max-width: 1400px;
-    margin: 0 auto;
+header {
     display: flex;
     flex-flow: column nowrap;
-    gap: 20px;
+    gap: 10px;
+    padding: 10px;
 }
 
-.meta {}
-
-.data {
-    display: flex;
-    flex-flow: row nowrap;
-}
-
-.aside {
-    width: 300px;
-}
-
-.main {
-    flex-grow: 1;
-}
-
-header {}
-
-nav {
+header nav {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -53,7 +35,17 @@ nav {
     padding: 20px 0px;
 }
 
-nav a {
+header .nav-mobile {
+    display: none;
+    height: 40px;
+    width: 100%;
+    background-color: white;
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+header nav a {
     text-decoration: none;
     color: var(--color1);
     padding: 10px 20px;
@@ -62,7 +54,72 @@ nav a {
     transition: .1s;
 }
 
-nav a:hover {
+header nav a:hover {
     background-color: rgb(241, 241, 241);
     color: var(--color2);
+}
+
+header .category_list {
+    display: flex;
+    gap: 10px;
+    flex-flow: column nowrap;
+}
+
+header .category_list .scroll {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px
+}
+
+header .category_list .scroll button {}
+
+header .category_list .categories {
+    display: flex;
+    flex: row nowrap;
+    overflow: scroll;
+    gap: 20px;
+}
+
+header .category_list .categories a {
+    text-decoration: none;
+    color: var(--color1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1.125rem;
+    transition: .1s;
+}
+
+header .category_list .categories a:hover {
+    background-color: rgb(241, 241, 241);
+    color: var(--color2);
+}
+
+body .content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+@media screen and (width <=600px) {
+    header nav {
+        display: none;
+        flex-flow: column nowrap;
+        gap: 10px;
+        justify-content: start;
+        align-items: start;
+        padding: 10px;
+        display: none;
+        position: absolute;
+        z-index: 1;
+        background-color: white;
+        width: 100%;
+        top: 40px;
+    }
+
+    header .nav-mobile {
+        display: block;
+    }
 }

@@ -105,4 +105,17 @@ class ProductPropertyTypeController extends Controller
 
         return to_route('product-property-types.index');
     }
+
+      public function search(Request $request)
+    {
+        $result = ProductPropertyType::where('id', '=', $request->q)->get();
+        if (!$result->first()) {
+            $result = ProductPropertyType::where('name', 'like', "%{$request->q}%")->get();
+        }
+
+        $data['product_property_types'] = $result;
+        $data['q'] = $request->q;
+
+        return view('content_manager.product_property_types.index', $data);
+    }
 }

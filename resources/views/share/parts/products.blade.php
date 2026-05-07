@@ -17,7 +17,6 @@
                 <form action="{{ route('user.add-to-cart', ['product' => $product]) }}" method="post">
                     <button class="add-to-cart">В корзину</button>
                 </form>
-
             </div>
         </div>
     @endforeach

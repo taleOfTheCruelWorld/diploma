@@ -89,4 +89,15 @@ class OrderController extends Controller
         $data['user_order'] = $userOrder;
         return view('admin.user_orders.order_items', $data);
     }
+
+    public function search(Request $request)
+    {
+        $result = UserOrder::where('id', '=', $request->q)->get();
+
+        $data['user_orders'] = $result;
+        $data['q'] = $request->q;
+        $data['user_order_statuses'] = UserOrderStatus::all();
+
+        return view('admin.user_orders.index', $data);
+    }
 }

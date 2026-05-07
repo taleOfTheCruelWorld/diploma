@@ -2,7 +2,14 @@
 @section('content')
     <div class="container">
         <h1>Заказы пользователей</h1>
-       
+       <div class="search">
+            <form action="{{ route('admin.user-orders.search') }}" method="get" class="search_form">
+                <div class="input_div">
+            <input type="text" name="q" placeholder="ID" @if(isset($q))value="{{ $q }}"@endif>
+             </div>
+               <input type="submit" value="Найти">
+        </form>
+    </div>
             @foreach ($user_orders as $order)
                 <div class="item">
                     <div class="id">ID: {{ $order->id }}</div>

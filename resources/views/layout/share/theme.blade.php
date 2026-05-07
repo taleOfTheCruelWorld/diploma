@@ -1,5 +1,4 @@
 @use('App\Models\Category')
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,15 +17,18 @@
 <body>
 
     <header>
-        <nav>
+        <div class="nav-mobile">
+         Меню
+        </div>
+        <nav class="main_nav">
             <a href="{{ route('index') }}">
                 <img src="logo.png" alt="logo">
             </a>
             <a href="{{ route('index') }}">Главная</a>
             <a href="{{ route('catalog') }}">Каталог</a>
-            <form action="{{ route('search') }}" method="get">
+            <form action="{{ route('search') }}" method="get" id="search">
                 <label for="">Искать</label>
-                <input type="text" name="q" @if(isset($search)) value="{{ $search }}" @endif>
+                <input type="text" name="q" @if(isset($q)) value="{{ $q }}" @endif>
             </form>
             @auth
                 <a href="{{ route('user.favorite') }}">Избранное</a>
@@ -38,26 +40,29 @@
                 <a href="{{ route('login') }}">Войти</a>
             @endguest
         </nav>
-        <div class="category_list" style="display:flex;gap:10px;flex-flow: column nowrap;">
-            <div class="scroll" style="display:flex; justify-content:space-between;padding:0px 20px">
-                <button type="button" id="scroll_category_down" style="">left</button>
-                <button type="button" id="scroll_category_up" style="">right</button>
+         <div class="category_list">
+            <div class="scroll">
+                <button type="button" id="scroll_category_down">left</button>
+                <button type="button" id="scroll_category_up">right</button>
             </div>
-            <div class="categories" style="display:flex; flex:row nowrap; overflow:scroll;gap:20px;" id="categories">
+            <div class="categories" id="categories">
                 @foreach (Category::all() as $category)
                     <a href="{{ route('category', ['category' => $category]) }}">{{ $category->name }}</a>
                 @endforeach
             </div>
         </div>
     </header>
-
-    @yield('content')
+        
+    <div class="content">
+        @yield('content')
+    </div>
 
     <footer>
 
     </footer>
 
     <script src="{{ asset('js/category_list_slider.js') }}"></script>
+    <script src="{{ asset('js/menu.js') }}"></script>
 
 </body>
 

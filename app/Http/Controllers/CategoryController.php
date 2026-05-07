@@ -84,7 +84,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-           $messages = [
+        $messages = [
             'name.required' => 'Поле имя обязательно к заполнению',
             'description.required' => 'Поле описание обязательно к заполнению',
         ];
@@ -114,5 +114,18 @@ class CategoryController extends Controller
         $category->delete();
 
         return to_route('categories.index');
+    }
+
+    public function search(Request $request)
+    {
+        $result = Category::where('id', '=', $request->q)->get();
+        if (!$result->first()) {
+            $result = Category::where('name', 'like', "%{$request->q}%")->get();
+        }
+
+        $data['categories'] = $result;
+        $data['q'] = $request->q;
+
+        return view('content_manager.categories.index', $data);
     }
 }

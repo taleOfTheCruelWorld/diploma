@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <body>
         <div class="cart">
             @if(!$cart_items->isEmpty())
             <div class="cart-items">
@@ -64,7 +63,5 @@
            <div>Упс! Кажется здесь ничего нет!</div>
             @endif
         </div>
-
-    </body>
 
 @endsection

@@ -124,4 +124,16 @@ class ProductMediaFileController extends Controller
 
         return to_route('product-media-files.index', ['product' => $product]);
     }
+
+    public function search(Request $request, Product $product)
+    {
+        $result = ProductMediaFile::where('id', '=', $request->q)->get();
+        
+        $data['product_media_files'] = $result;
+        $data['q'] = $request->q;
+        $data['product'] = $product;
+
+        return view('content_manager.product_media_files.index', $data);
+    }
+
 }

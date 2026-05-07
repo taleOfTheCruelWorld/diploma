@@ -11,6 +11,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin_and_content_manager.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin_and_content_manager_search_form.css') }}">
     @if(isset($css))
         @foreach ($css as $one)
             <link rel="stylesheet" href="{{ resource_path() . $one }}">
@@ -23,10 +24,14 @@
         <nav>
             <a href="{{ route('categories.index') }}">Категории продуктов ({{ Category::count() }})</a>
             <a href="{{ route('products.index') }}">Продукты ({{ Category::count() }})</a>
-            <a href="{{ route('product-property-types.index') }}">Типы характеристик продуктов ({{ Category::count() }})</a>
+            <a href="{{ route('product-property-types.index') }}">Типы характеристик продуктов
+                ({{ Category::count() }})</a>
         </nav>
     </header>
-    @yield('content')
+    <div class="content">
+        @yield('content')
+    </div>
+
 </body>
 
 </html>

@@ -2,6 +2,14 @@
 @section('content')
     <div class="container">
         <h1>Типы свойств продуктов</h1>
+          <div class="search">
+            <form action="{{ route('product-property-types.search') }}" method="get" class="search_form">
+                <div class="input_div">
+                    <input type="text" name="q" placeholder="Имя или ID" @if(isset($q))value="{{ $q }}"@endif>
+                </div>
+                <input type="submit" value="Найти">
+            </form>
+        </div>
         <nav>
             <a href="{{ route('product-property-types.create') }}">Создать тип свойств продуктов</a>
         </nav>

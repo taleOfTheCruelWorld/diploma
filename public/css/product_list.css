@@ -13,7 +13,6 @@
 .product-list .item {
     display: flex;
     flex-flow: row wrap;
-    width: 100%;
     gap: 20px;
 
 }
@@ -31,6 +30,7 @@
 .product-list .item .item-data {
     display: flex;
     flex-flow: column nowrap;
+    margin-right: auto;
 }
 
 .product-list .item .item-data a {
@@ -47,7 +47,6 @@
     flex-flow: column nowrap;
     gap: 20px;
     height: 100%;
-    margin-left: auto;
 }
 
 .product-list .item .actions button {

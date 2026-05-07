@@ -55,20 +55,27 @@ class MainController extends Controller
     public function search(Request $request)
     {
         if (strlen($request->q) == 0) {
-            return to_route('index');
+            return back();
         }
-        $result = Product::whereLike('name', "%{$request->q}%")->get();
-        if ($result->count() == 0) {
-            $result = Category::whereLike('name', "%$request->q%")->first();
-            if (!$result) {
-                $result = null;
-            } else {
-                $result = $result->products;
-            }
+        $result = Product::whereLike('name', "%{$request->q}%")->first();
+        if ($result) {
+             $data['category'] = $result->category;
+            $result = $result->category->products->filter(function ($item) {
+                if (stripos(mb_convert_encoding($item->name, 'ASCII'), mb_convert_encoding($_REQUEST['q'], 'ASCII')) !== false) {
+                    return $item;
+                }
+            });
+        } else {
+            $result = null;
         }
         $data['products'] = $result;
-        $data['css'] = ['css/product_list.css'];
-        $data['search'] = $request->q;
+        $data['css'] = ['css/product_list.css', 'css/products.css', 'css/filter.css', 'css/sort.css'];
+        $data['q'] = $request->q;
+        $data['count'] = $request->count;
+        $data['price_from'] = $request->price_from;
+        $data['price_to'] = $request->price_to;
+        $data['rating'] = $request->rating;
+
         return view('share.search', $data);
     }
 
@@ -109,7 +116,7 @@ class MainController extends Controller
             $media->save();
         }
 
-        return to_route('product', ['product'=>$product]);
+        return to_route('product', ['product' => $product]);
     }
 
     public function cart()
@@ -134,5 +141,5 @@ class MainController extends Controller
         return view('user.orders', $data);
     }
 
-  
+
 }

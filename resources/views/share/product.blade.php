@@ -1,10 +1,8 @@
 @extends('layout.share.theme')
 @section('content')
-
-    <body>
         <div class="product">
             <div class="media">
-                <section class="splide" style="">
+                <section class="splide">
                     <div class="splide__track">
                         <ul class="splide__list">
                             @foreach ($product->productMediaFiles as $media)
@@ -29,7 +27,7 @@
                     </form>
                 </div>
             </div>
-            <div class="product-all-data">
+            <div class="product-extend-data">
                 <div class="comments-media-div">
                     @foreach ($product_comments as $comment)
                         @if($comment->productCommentMediaFiles->first())
@@ -76,7 +74,7 @@
                         <textarea name="text"></textarea>
                     </div>
                     <div class="input-div">
-                        <label for="">Изображение</label>
+                        <label id="comment_image">Выбрать изображение</label>
                         <input type="file" name="image">
                     </div>
                     <input type="submit" value="Отправить" class="comment_btn">
@@ -107,6 +105,4 @@
             var splide = new Splide('.splide');
             splide.mount();
         </script>
-    </body>
-
 @endsection

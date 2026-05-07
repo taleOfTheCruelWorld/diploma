@@ -25,4 +25,17 @@ class AdminController extends Controller
         $data['user_order_statuses'] = UserOrderStatus::all();
         return view('admin.user_orders.index', $data);
     }
+    public function userSearch(Request $request)
+    {
+        $result = User::where('id', '=', $request->q)->get();
+
+        if(!$result->first()){
+            $result = User::where('name', 'like', "%{$request->q}%")->get();
+        }
+
+        $data['users'] = $result;
+        $data['q'] = $request->q;
+
+        return view('admin.users.index', $data);
+    }
 }

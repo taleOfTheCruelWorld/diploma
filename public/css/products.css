@@ -1,0 +1,22 @@
+.meta {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
+.data {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.data .aside {
+    width: 320px;
+    flex-grow: 0;
+    padding: 10px;
+}
+
+.data .main {
+    min-width: 320px;
+    flex-grow: 1;
+    padding: 10px;
+}

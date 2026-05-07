@@ -2,6 +2,14 @@
 @section('content')
     <div class="container">
         <h1>Статусы заказов пользователей</h1>
+          <div class="search">
+            <form action="{{ route('admin.user-order-statuses.search') }}" method="get" class="search_form">
+                <div class="input_div">
+            <input type="text" name="q" placeholder="Имя или ID" @if(isset($q))value="{{ $q }}"@endif>
+             </div>
+               <input type="submit" value="Найти">
+        </form>
+    </div>
         <nav>
             <a href="{{ route('user-order-statuses.create') }}">Создать статус заказов пользователей</a>
         </nav>

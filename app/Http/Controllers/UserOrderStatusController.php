@@ -108,4 +108,17 @@ class UserOrderStatusController extends Controller
 
         return to_route('user-order-statuses.index');
     }
+
+    public function search(Request $request)
+    {
+        $result = UserOrderStatus::where('id', '=', $request->q)->get();
+        if (!$result->first()) {
+            $result = userOrderStatus::where('name', 'like', "%{$request->q}%")->get();
+        }
+
+        $data['user_order_statuses'] = $result;
+        $data['q'] = $request->q;
+
+        return view('admin.user_order_statuses.index', $data);
+    }
 }

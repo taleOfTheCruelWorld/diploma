@@ -4,15 +4,10 @@
     --button-active: #08dfdf;
 }
 
-.cart {
-    max-width: 1400px;
-    margin: 0 auto;
-    margin-top: 50px;
+.cart{
     display: flex;
     flex-flow: row wrap;
-    gap: 30px;
 }
-
 
 .cart-items {
     flex-grow: 1;
@@ -76,6 +71,7 @@
     align-items: center;
     padding: 20px;
     gap: 10px;
+    width: fit-content;
 }
 
 .make-order-form form{

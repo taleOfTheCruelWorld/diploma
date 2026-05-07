@@ -5,12 +5,6 @@
 }
 
 
-.favorite-items {
-    max-width: 1400px;
-    margin: 0 auto;
-    margin-top: 50px;
-}
-
 .product {
     display: flex;
     flex-flow: row wrap;

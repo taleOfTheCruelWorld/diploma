@@ -2,6 +2,14 @@
 @section('content')
     <div class="container">
         <h1>Пользователи</h1>
+          <div class="search">
+            <form action="{{ route('admin.users.search') }}" method="get" class="search_form">
+                <div class="input_div">
+            <input type="text" name="q" placeholder="Имя или ID" @if(isset($q))value="{{ $q }}"@endif>
+             </div>
+               <input type="submit" value="Найти">
+        </form>
+    </div>
        
             @foreach ($users as $user)
                 <div class="item">

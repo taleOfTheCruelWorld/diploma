@@ -118,4 +118,15 @@ class ProductPropertyController extends Controller
 
         return to_route('product-properties.index', ['product' => $product]);
     }
+
+      public function search(Request $request, Product $product)
+    {
+        $result = ProductProperty::where('id', '=', $request->q)->get();
+
+        $data['product_properties'] = $result;
+        $data['q'] = $request->q;
+        $data['product'] = $product;
+
+        return view('content_manager.product_properties.index', $data);
+    }
 }

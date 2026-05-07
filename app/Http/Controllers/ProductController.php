@@ -134,4 +134,17 @@ class ProductController extends Controller
 
         return to_route('products.index');
     }
+
+      public function search(Request $request)
+    {
+        $result = Product::where('id', '=', $request->q)->get();
+        if (!$result->first()) {
+            $result = Product::where('name', 'like', "%{$request->q}%")->get();
+        }
+
+        $data['products'] = $result;
+        $data['q'] = $request->q;
+
+        return view('content_manager.products.index', $data);
+    }
 }

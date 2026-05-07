@@ -62,21 +62,27 @@ Route::middleware(EnsureUserHasRightToGetToTheCRUD::class)->prefix('/crud')->gro
 
     // Категории
     Route::resource('categories', CategoryController::class);
+    Route::get('search/categories', [CategoryController::class, 'search'])->name('categories.search');
 
     // Типы свойств продуктов
     Route::resource('product-property-types', ProductPropertyTypeController::class);
+    Route::get('search/product-property-types', [ProductPropertyTypeController::class, 'search'])->name('product-property-types.search');
 
     // Свойства для продуктов этой категории
     Route::resource('categories/{category}/category-product-properties', CategoryProductPropertyController::class);
+    Route::get('search/categories/{category}/category-product-properties', [CategoryProductPropertyController::class, 'search'])->name('category-product-properties.search');
 
     // Продукты
     Route::resource('products', ProductController::class);
+    Route::get('search/products', [ProductController::class, 'search'])->name('products.search');
 
     // Изображения продуктов
     Route::resource('products/{product}/product-media-files', ProductMediaFileController::class);
+    Route::get('search/products/{product}/product-media-files', [ProductMediaFileController::class, 'search'])->name('product-media-files.search');
 
     // Свойства продуктов
     Route::resource('products/{product}/product-properties', ProductPropertyController::class);
+    Route::get('search/products/{product}/product-properties', [ProductPropertyController::class, 'search'])->name('product-properties.search');
 
 });
 
@@ -88,14 +94,17 @@ Route::middleware(EnsureUserIsAdmin::class)->prefix('/admin')->group(function ()
 
     // Статусы заказов пользователей
     Route::resource('user-order-statuses', UserOrderStatusController::class);
+    Route::get('/search/user-order-statuses', [UserOrderStatusController::class, 'search'])->name('admin.user-order-statuses.search');
 
     // Пользователи
     Route::get('/users', [AdminController::class, 'usersList'])->name('admin.users.index');
+    Route::get('/search/users', [AdminController::class, 'userSearch'])->name('admin.users.search');
 
     // Заказы пользователей
     Route::get('/user-orders', [AdminController::class, 'userOrdersList'])->name('admin.user-orders.index');
     Route::post('/user-orders/{userOrder}/status-update', [OrderController::class, 'statusUpdate'])->name('admin.user-orders.order-status-update');
     Route::get('/user-orders/{userOrder}', [OrderController::class, 'orderItemsList'])->name('admin.user-orders.order-items');
+    Route::get('search/user-orders', [OrderController::class, 'search'])->name('admin.user-orders.search');
 
 });
 

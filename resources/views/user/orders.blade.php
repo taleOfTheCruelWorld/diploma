@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <body>
         <div class="orders">
             @foreach ($orders as $order)
                 <div class="order">
@@ -34,6 +33,6 @@
                 Упс! Кажется здесь ничего нет!
             @endforelse
         </div>
-    </body>
+
 
 @endsection

@@ -124,4 +124,18 @@ class CategoryProductPropertyController extends Controller
 
         return to_route('category-product-properties.index', ['category' => $category]);
     }
+
+      public function search(Request $request, Category $category)
+    {
+        $result = CategoryProductProperty::where('id', '=', $request->q)->get();
+        if (!$result->first()) {
+            $result = CategoryProductProperty::where('name', 'like', "%{$request->q}%")->where('category_id', '=', $category->id)->get();
+        }
+
+        $data['category_product_properties'] = $result;
+        $data['q'] = $request->q;
+        $data['category'] = $category;
+
+        return view('content_manager.category_product_properties.index', $data);
+    }
 }

@@ -2,6 +2,14 @@
 @section('content')
 <div class="container">
  <h1>Медиа-файлы продукта {{ $product->name }}</h1>
+   <div class="search">
+            <form action="{{ route('product-media-files.search', ['product'=>$product]) }}" method="get" class="search_form">
+                <div class="input_div">
+            <input type="text" name="q" placeholder="ID" @if(isset($q))value="{{ $q }}"@endif>
+             </div>
+               <input type="submit" value="Найти">
+        </form>
+    </div>
     <nav>
         <a href="{{ route('product-media-files.create', ['product'=>$product]) }}">Создать медиа-файл</a>
     </nav>

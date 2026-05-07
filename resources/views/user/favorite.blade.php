@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <body>
         <div class="favorite-items">
             @foreach ($favorite_items as $product)
                 <div class="product">
@@ -26,6 +25,5 @@
             Упс! Кажется здесь ничего нет!
             @endforelse
         </div>
-    </body>
 
 @endsection
