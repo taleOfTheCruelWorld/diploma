@@ -22,7 +22,7 @@
         </div>
         <nav class="main_nav">
             <a href="{{ route('index') }}">
-                <img src="logo.png" alt="logo">
+                <img src="{{ asset('logo.svg') }}" alt="logo" class="logo">
             </a>
             <a href="{{ route('index') }}">Главная</a>
             <a href="{{ route('catalog') }}">Каталог</a>

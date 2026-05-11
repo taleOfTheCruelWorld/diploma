@@ -35,6 +35,11 @@ header nav {
     padding: 20px 0px;
 }
 
+header nav .logo{
+    height: 70px;
+    width: 70px;
+}
+
 header .nav-mobile {
     display: none;
     height: 40px;
