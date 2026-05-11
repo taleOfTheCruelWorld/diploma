@@ -1,7 +1,7 @@
 @extends('layout.content_manager.theme')
 @section('content')
     <div class="container">
-        <form action="{{ route('product-property-types.store') }}" method="post">
+        <form action="{{ route('product-property-groups.store') }}" method="post">
             @csrf
             <div class="input_div">
                 <label for="">Название</label>

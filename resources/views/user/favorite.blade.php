@@ -13,7 +13,7 @@
                             class="name">{{ $product->product->name }}</a>
                         <div class="price">{{ $product->product->price }} Руб.</div>
                         <form
-                            action="{{ route('user.remove-from-favorite', ['product' => $product->product, 'userFavoriteItem' => $product]) }}"
+                            action="{{ route('user.remove-from-favorite', ['userFavoriteItem' => $product]) }}"
                             method="post">
                             <button>Удалить из избранного</button>
                         </form>

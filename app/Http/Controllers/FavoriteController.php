@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\UserFavoriteItem;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
     public function addToFavorite(Product $product)
     {
+        if (!$product->id) {
+            return back();
+        }
         $fav = new UserFavoriteItem();
 
         $fav->user_id = Auth::user()->id;

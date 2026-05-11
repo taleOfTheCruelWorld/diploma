@@ -2,34 +2,32 @@
 @section('content')
     <div class="container">
         <form
-            action="{{ route('category-product-properties.update', ['category' => $current_category_product_property->category_id, 'category_product_property' => $current_category_product_property]) }}"
+            action="{{ route('category-product-properties.update', ['category' => $category, 'category_product_property' => $current_category_product_property]) }}"
             method="post">
             @csrf
             @method('PUT')
             <div class="input_div">
-                <label for="">Тип свойства</label>
-                <select name="product_property_type">
-                    @foreach ($product_property_types as $type)
-                        <option value="{{ $type->id }}"
-                            @selected($type->id == $current_category_product_property->product_property_type_id)>{{ $type->name }}
+                <label for="">Свойство</label>
+                <select name="property">
+                    @foreach ($properties as $property)
+                        <option value="{{ $property->id }}"
+                            @selected($property->id == $current_category_product_property->property_id)>{{ $property->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
             <div class="input_div">
-                <label for="">Название</label>
-                <input type="text" name="name" value="{{ $current_category_product_property->name }}">
+                <label for="">Использовать в фильтре</label>
+                <select name="used_in_filter">
+                    <option value="1" @selected($current_category_product_property->used_in_filter == 1)>Да</option>
+                    <option value="0" @selected($current_category_product_property->used_in_filter == 0)>Нет</option>
+                </select>
             </div>
-            <div class="input_div">
-                <label for="">Описание</label>
-                <input type="text" name="description" value="{{ $current_category_product_property->description }}">
-            </div>
-            <input type="submit" value="Создать">
+            <input type="submit" value="Обновить">
             @foreach ($errors->all() as $error)
                 <p style="color:red;">{{ $error }}</p>
             @endforeach
         </form>
     </div>
-
 
 @endsection

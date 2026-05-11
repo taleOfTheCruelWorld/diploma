@@ -4,20 +4,19 @@
         <form action="{{ route('category-product-properties.store', ['category' => $category]) }}" method="post">
             @csrf
             <div class="input_div">
-                <label for="">Тип свойства</label>
-                <select name="product_property_type">
-                    @foreach ($product_property_types as $type)
-                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                <label for="">Свойство</label>
+                <select name="property">
+                    @foreach ($properties as $property)
+                        <option value="{{ $property->id }}">{{ $property->name }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="input_div">
-                <label for="">Название</label>
-                <input type="text" name="name">
-            </div>
-            <div class="input_div">
-                <label for="">Описание</label>
-                <input type="text" name="description">
+                <label for="">Использовать в фильтре</label>
+                <select name="used_in_filter">
+                    <option value="1">Да</option>
+                    <option value="0">Нет</option>
+                </select>
             </div>
             <input type="submit" value="Создать">
             @foreach ($errors->all() as $error)

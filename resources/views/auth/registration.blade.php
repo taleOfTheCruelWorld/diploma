@@ -13,7 +13,7 @@
             </div>
             <div class="input_div">
                 <div class="img"></div>
-                <input type="text" name="password" placeholder="Пароль" value="{{ old('password') }}">
+                <input type="password" name="password" placeholder="Пароль" value="{{ old('password') }}">
             </div>
             <div class="input_div">
                 <div class="img"></div>

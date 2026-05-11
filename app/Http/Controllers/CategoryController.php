@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\ProductPropertyType;
 use Illuminate\Http\Request;
+use Str;
 
 class CategoryController extends Controller
 {
@@ -36,13 +36,14 @@ class CategoryController extends Controller
 
         $messages = [
             'name.required' => 'Поле имя обязательно к заполнению',
+            'name.unique'=>'Это название уже занято',
             'description.required' => 'Поле описание обязательно к заполнению',
         ];
 
 
         $request->validate(
             [
-                'name' => 'bail|required',
+                'name' => 'bail|required|unique:categories',
                 'description' => 'bail|required',
             ],
             $messages
@@ -52,6 +53,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->category_id = $request->parent_category;
         $category->description = $request->description;
+        $category->slug = Str::slug($request->name, '-', 'ru');
 
         $category->save();
 
@@ -86,13 +88,14 @@ class CategoryController extends Controller
     {
         $messages = [
             'name.required' => 'Поле имя обязательно к заполнению',
+            'name.unique'=>'Это название уже занято',
             'description.required' => 'Поле описание обязательно к заполнению',
         ];
 
 
         $request->validate(
             [
-                'name' => 'bail|required',
+                'name' => 'bail|required|unique.categories',
                 'description' => 'bail|required',
             ],
             $messages
@@ -100,6 +103,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->category_id = $request->parent_category;
         $category->description = $request->description;
+        $category->slug = Str::slug($request->name, '-', 'ru');
 
         $category->save();
 

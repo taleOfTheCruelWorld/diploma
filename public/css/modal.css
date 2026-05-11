@@ -1,0 +1,28 @@
+.modal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.modal form {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal form .input_div {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 6px;
+}

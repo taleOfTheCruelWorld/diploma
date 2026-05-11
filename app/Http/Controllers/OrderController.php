@@ -55,6 +55,10 @@ class OrderController extends Controller
 
             $orderItem->save();
 
+            $product = $item->product;
+            $product->count -= $item->count;
+            $product->save();
+
             $item->delete();
         }
         $order->total_cost = $totalCost;
@@ -68,11 +72,12 @@ class OrderController extends Controller
     {
         $messages = [
             'status.required' => 'Поле статус обязательно к заполнению',
+            'status.exists' => 'Такого статуса не существует',
         ];
 
         $request->validate(
             [
-                'status' => 'required',
+                'status' => 'required}exists:user_order_statuses,id',
             ],
             $messages
         );

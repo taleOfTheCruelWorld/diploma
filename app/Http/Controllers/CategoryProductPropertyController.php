@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\CategoryProductProperty;
-use App\Models\ProductPropertyType;
+use App\Models\ProductProperty;
+use App\Models\ProductPropertyGroup;
+use App\Models\Property;
 use Illuminate\Http\Request;
 
 class CategoryProductPropertyController extends Controller
@@ -27,7 +29,7 @@ class CategoryProductPropertyController extends Controller
     public function create(Category $category)
     {
         $data['category'] = $category;
-        $data['product_property_types'] = ProductPropertyType::all();
+        $data['properties'] = Property::all();
 
         return view('content_manager.category_product_properties.create', $data);
     }
@@ -38,28 +40,35 @@ class CategoryProductPropertyController extends Controller
     public function store(Request $request, Category $category)
     {
         $messages = [
-            'product_property_type.required' => 'Поле тип свойства продукта обязательно к заполнению',
-            'name.required' => 'Поле имя обязательно к заполнению',
-            'description.required' => 'Поле описание обязательно к заполнению',
+            'property.required' => 'Поле Характеристика обязательно к заполнению',
+            'property.exists'=>'Такого свойства не существует',
+            'used_in_filter.required' => 'Поле Использовать в фильтре обязательно к заполнению',
         ];
 
 
         $request->validate(
             [
-                'product_property_type' => 'required',
-                'name' => 'bail|required',
-                'description' => 'bail|required',
+                'property' => 'required|exists:properties,id',
+                'used_in_filter' => 'bail|required',
             ],
             $messages
         );
         $property = new CategoryProductProperty();
 
         $property->category_id = $category->id;
-        $property->product_property_type_id = $request->product_property_type;
-        $property->name = $request->name;
-        $property->description = $request->description;
-
+        $property->property_id = $request->property;
+        $property->used_in_filter = $request->used_in_filter;
+       
         $property->save();
+
+        foreach ($category->products as $product) {
+            $productProperty = new ProductProperty();
+
+            $productProperty->product_id = $product->id;
+            $productProperty->property_id = $property->property->id;
+
+            $productProperty->save();
+        }
 
         return to_route('category-product-properties.index', ['category' => $category]);
     }
@@ -81,7 +90,9 @@ class CategoryProductPropertyController extends Controller
     {
 
         $data['current_category_product_property'] = $categoryProductProperty;
-        $data['product_property_types'] = ProductPropertyType::all();
+        $data['product_property_groups'] = ProductPropertyGroup::all();
+        $data['properties'] = Property::all();
+        $data['category'] = $category;
 
         return view('content_manager.category_product_properties.edit', $data);
     }
@@ -92,23 +103,22 @@ class CategoryProductPropertyController extends Controller
     public function update(Request $request, Category $category, CategoryProductProperty $categoryProductProperty)
     {
         $messages = [
-            'product_property_type.required' => 'Поле тип свойства продукта обязательно к заполнению',
-            'name.required' => 'Поле имя обязательно к заполнению',
-            'description.required' => 'Поле описание обязательно к заполнению',
+            'property.required' => 'Поле Характеристика обязательно к заполнению',
+            'property.exists'=>'Такого свойства не существует',
+            'used_in_filter.required' => 'Поле Использовать в фильтре обязательно к заполнению',
         ];
 
 
         $request->validate(
             [
-                'product_property_type' => 'required',
-                'name' => 'bail|required',
-                'description' => 'bail|required',
+                'property' => 'required|exists:properties,id',
+                'used_in_filter' => 'bail|required',
             ],
             $messages
         );
-        $categoryProductProperty->product_property_type_id = $request->product_property_type;
-        $categoryProductProperty->name = $request->name;
-        $categoryProductProperty->description = $request->description;
+
+        $categoryProductProperty->property_id = $request->property;
+        $categoryProductProperty->used_in_filter = $request->used_in_filter;
 
         $categoryProductProperty->save();
 
@@ -125,7 +135,7 @@ class CategoryProductPropertyController extends Controller
         return to_route('category-product-properties.index', ['category' => $category]);
     }
 
-      public function search(Request $request, Category $category)
+    public function search(Request $request, Category $category)
     {
         $result = CategoryProductProperty::where('id', '=', $request->q)->get();
         if (!$result->first()) {

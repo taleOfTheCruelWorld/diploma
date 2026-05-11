@@ -12,7 +12,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductMediaFileController;
 use App\Http\Controllers\ProductPropertyController;
-use App\Http\Controllers\ProductPropertyTypeController;
+use App\Http\Controllers\ProductPropertyGroupController;
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserOrderStatusController;
 use App\Http\Middleware\EnsureUserHasRightToGetToTheCRUD;
 use App\Http\Middleware\EnsureUserIsAdmin;
@@ -41,16 +42,25 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Авторизованный пользователь
 Route::middleware(EnsureUserIsAuthorized::class)->prefix('me')->group(function () {
+
+    // Избранное
     Route::get('/favorite', [MainController::class, 'favorite'])->name('user.favorite');
-    Route::post('/product/{product}/add-to-favorite', [FavoriteController::class, 'addToFavorite'])->name('user.add-to-favorite');
-    Route::post('/product/{product}/remove-from-favorite/{userFavoriteItem}', [FavoriteController::class, 'removeFromFavorite'])->name('user.remove-from-favorite');
+    Route::post('/favorite/add-to-favorite/{product}', [FavoriteController::class, 'addToFavorite'])->name('user.add-to-favorite');
+    Route::post('/favorite/remove-from-favorite/{userFavoriteItem}', [FavoriteController::class, 'removeFromFavorite'])->name('user.remove-from-favorite');
+
+    // Корзина
     Route::get('/cart', [MainController::class, 'cart'])->name('user.cart');
-    Route::post('/product/{product}/add-to-cart', [CartController::class, 'addToCart'])->name('user.add-to-cart');
-    Route::post('/product/{product}/remove-from-cart/{userCartItem}', [CartController::class, 'removeFromCart'])->name('user.remove-from-cart');
-    Route::post('/product/{product}/set-count-of-cart-item/{userCartItem}', [CartController::class, 'setProductCount'])->name('user.set-count-of-cart-item');
+    Route::post('/cart/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('user.add-to-cart');
+    Route::post('/cart/remove-from-cart/{userCartItem}', [CartController::class, 'removeFromCart'])->name('user.remove-from-cart');
+    Route::post('/cart/set-count-of-cart-item/{userCartItem}', [CartController::class, 'setProductCount'])->name('user.set-count-of-cart-item');
+
+    // Заказы
     Route::get('/orders', [MainController::class, 'orders'])->name('user.orders');
-    Route::post('/make-order', [OrderController::class, 'store'])->name('user.make-order');
+    Route::post('/orders/make-order', [OrderController::class, 'store'])->name('user.make-order');
+
+    // Отзывы к продуктам
     Route::post('/product/{product}/make-comment', [MainController::class, 'makeComment'])->name('user.make-comment');
+    
 });
 
 
@@ -64,9 +74,13 @@ Route::middleware(EnsureUserHasRightToGetToTheCRUD::class)->prefix('/crud')->gro
     Route::resource('categories', CategoryController::class);
     Route::get('search/categories', [CategoryController::class, 'search'])->name('categories.search');
 
-    // Типы свойств продуктов
-    Route::resource('product-property-types', ProductPropertyTypeController::class);
-    Route::get('search/product-property-types', [ProductPropertyTypeController::class, 'search'])->name('product-property-types.search');
+    // Группы свойств продуктов
+    Route::resource('product-property-groups', ProductPropertyGroupController::class);
+    Route::get('search/product-property-groups', [ProductPropertyGroupController::class, 'search'])->name('product-property-groups.search');
+
+    // Все возможные свойства продуктов
+    Route::resource('properties', PropertyController::class);
+    Route::get('search/properties', [PropertyController::class, 'search'])->name('properties.search');
 
     // Свойства для продуктов этой категории
     Route::resource('categories/{category}/category-product-properties', CategoryProductPropertyController::class);
@@ -81,8 +95,8 @@ Route::middleware(EnsureUserHasRightToGetToTheCRUD::class)->prefix('/crud')->gro
     Route::get('search/products/{product}/product-media-files', [ProductMediaFileController::class, 'search'])->name('product-media-files.search');
 
     // Свойства продуктов
-    Route::resource('products/{product}/product-properties', ProductPropertyController::class);
-    Route::get('search/products/{product}/product-properties', [ProductPropertyController::class, 'search'])->name('product-properties.search');
+    Route::get('products/{product}/product-properties', [ProductPropertyController::class, 'index'])->name('product-properties.index');
+    Route::post('product/{product}/product-properties', [ProductPropertyController::class, 'update'])->name('product-properties.update');
 
 });
 

@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductPropertyType extends Model
+class ProductPropertyGroup extends Model
 {
     #[Fillable(['name'])]
 
-    public function categoryProductProperties()
+    public function properties()
     {
-        return $this->hasMany(CategoryProductProperty::class);
+        return $this->hasMany(Property::class);
     }
+
 }

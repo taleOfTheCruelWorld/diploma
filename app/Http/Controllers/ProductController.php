@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductProperty;
 use Illuminate\Http\Request;
+use Str;
 
 class ProductController extends Controller
 {
@@ -41,6 +43,7 @@ class ProductController extends Controller
             'description.required' => 'Поле описание обязательно к заполнению',
             'count.required' => 'Поле количество обязательно к заполнению',
             'count.integer' => 'Поле количество целочисленное',
+            'count.gt' => 'Количество не может быть меньше 0'
         ];
 
 
@@ -50,7 +53,7 @@ class ProductController extends Controller
                 'name' => 'bail|required',
                 'price' => 'bail|required|integer',
                 'description' => 'bail|required',
-                'count' => 'bail|required|integer',
+                'count' => 'bail|required|integer|gt:-1',
             ],
             $messages
         );
@@ -61,8 +64,21 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
         $product->count = $request->count;
+        $product->slug = Str::slug($request->name, '-', 'ru');
+
 
         $product->save();
+
+
+        $properties = $product->category->categoryProductProperties;
+        foreach ($properties as $property) {
+            $productProperty = new ProductProperty();
+
+            $productProperty->product_id = $product->id;
+            $productProperty->property_id = $property->id;
+
+            $productProperty->save();
+        }
 
         return to_route('products.index');
     }
@@ -101,6 +117,7 @@ class ProductController extends Controller
             'description.required' => 'Поле описание обязательно к заполнению',
             'count.required' => 'Поле количество обязательно к заполнению',
             'count.integer' => 'Поле количество целочисленное',
+            'count.gt' => 'Количество не может быть меньше 0'
         ];
 
 
@@ -110,7 +127,7 @@ class ProductController extends Controller
                 'name' => 'bail|required',
                 'price' => 'bail|required|integer',
                 'description' => 'bail|required',
-                'count' => 'bail|required|integer',
+                'count' => 'bail|required|integer|gt:-1',
             ],
             $messages
         );
@@ -119,6 +136,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
         $product->count = $request->count;
+        $product->slug = Str::slug($request->name, '-', 'ru');
 
         $product->save();
 
@@ -135,7 +153,7 @@ class ProductController extends Controller
         return to_route('products.index');
     }
 
-      public function search(Request $request)
+    public function search(Request $request)
     {
         $result = Product::where('id', '=', $request->q)->get();
         if (!$result->first()) {

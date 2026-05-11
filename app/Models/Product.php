@@ -9,6 +9,11 @@ class Product extends Model
 {
     #[Fillable(['name', 'category_id', 'price', 'description'])]
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

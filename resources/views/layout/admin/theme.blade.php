@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin_and_content_manager_search_form.css') }}">
     @if(isset($css))
         @foreach ($css as $one)
-            <link rel="stylesheet" href="{{ resource_path() . $one }}">
+            <link rel="stylesheet" href="{{ asset($one) }}">
         @endforeach
     @endif
 </head>

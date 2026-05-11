@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 class CategoryProductProperty extends Model
 {
-    #[Fillable(['name', 'category_id', 'description', 'product_property_type_id'])]
+    #[Fillable(['category_id', 'property_id', 'used_in_filter'])]
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function productPropertyType()
+    public function property()
     {
-        return $this->belongsTo(ProductPropertyType::class);
+        return $this->belongsTo(Property::class);
     }
 }

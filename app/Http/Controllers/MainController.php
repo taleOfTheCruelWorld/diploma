@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductComment;
 use App\Models\ProductCommentMediaFile;
-use App\Models\UserOrder;
+use App\Models\ProductProperty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,7 +46,11 @@ class MainController extends Controller
         }
         $data['product_comments'] = $product->productComments;
 
-        $data['product_properties'] = $product->productProperties;
+        $data['product_properties'] = ProductProperty::join('properties', 'property_id', '=', 'properties.id')
+            ->where('product_id', '=', $product->id)
+            ->whereNotNull('value')
+            ->orderBy('product_property_group_id')
+            ->get();
 
 
         return view('share.product', $data);
@@ -59,7 +63,7 @@ class MainController extends Controller
         }
         $result = Product::whereLike('name', "%{$request->q}%")->first();
         if ($result) {
-             $data['category'] = $result->category;
+            $data['category'] = $result->category;
             $result = $result->category->products->filter(function ($item) {
                 if (stripos(mb_convert_encoding($item->name, 'ASCII'), mb_convert_encoding($_REQUEST['q'], 'ASCII')) !== false) {
                     return $item;
@@ -81,6 +85,9 @@ class MainController extends Controller
 
     public function makeComment(Request $request, Product $product)
     {
+        if (!$product->id) {
+            return back();
+        }
         $messages = [
             'text.required' => 'Поле комментарий обязательно к заполнению',
             'mark.required' => 'Поле оценка обязательно к заполнению',

@@ -11,43 +11,54 @@ return new class extends Migration {
     public function up(): void
     {
 
-        Schema::create('product_property_types', function (Blueprint $table) {
+        Schema::create('product_property_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
 
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('name')->unique();
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->string('description');
+            $table->string('slug')->unique();
             $table->timestamps();
+        });
+
+        Schema::create('properties', function (Blueprint $t) {
+            $t->id();
+            $t->string('name')->unique();
+            $t->string('units')->nullable()->default(null);
+            $t->string('type');
+            $t->foreignId('product_property_group_id')->constrained();
+            $t->timestamps();
         });
 
         Schema::create('category_product_properties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained();
-            $table->foreignId('product_property_type_id')->constrained();
-            $table->string('name');
-            $table->string('description');
+            $table->foreignId('property_id')->constrained()->cascadeOnDelete();
+            $table->boolean('used_in_filter');
             $table->timestamps();
         });
 
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('price');
             $table->string('description');
             $table->bigInteger('count')->default(0);
+            $table->boolean('is_active')->default(1);
+            $table->string('slug')->unique();
             $table->timestamps();
         });
 
         Schema::create('product_comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_active');
             $table->string('text');
             $table->tinyInteger('mark', false, true);
@@ -56,44 +67,44 @@ return new class extends Migration {
 
         Schema::create('product_comment_media_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_comment_id')->constrained();
+            $table->foreignId('product_comment_id')->constrained()->cascadeOnDelete();
             $table->string('path');
             $table->timestamps();
         });
 
         Schema::create('product_media_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
-            $table->string('path');
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->string('path')->unique();
             $table->timestamps();
         });
 
         Schema::create('product_properties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
-            $table->foreignId('category_product_property_id')->constrained();
-            $table->string('value');
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('property_id')->constrained()->cascadeOnDelete();
+            $table->string('value')->nullable()->default(null);
             $table->timestamps();
         });
 
         Schema::create('user_favorite_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained();
             $table->timestamps();
         });
 
         Schema::create('user_cart_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained();
-            $table->integer('count');
+            $table->integer('count', false, true)->default(1);
             $table->timestamps();
         });
 
         Schema::create('user_order_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('description');
             $table->timestamps();
         });
@@ -111,7 +122,7 @@ return new class extends Migration {
 
         Schema::create('user_order_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_order_id')->constrained();
+            $table->foreignId('user_order_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained();
             $table->string('price');
             $table->integer('count');
@@ -136,7 +147,8 @@ return new class extends Migration {
         Schema::dropIfExists('products');
         Schema::dropIfExists('category_templates');
         Schema::dropIfExists('category_product_properties');
+        Schema::dropIfExists('properties');
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('product_property_types');
+        Schema::dropIfExists('product_property_groups');
     }
 };

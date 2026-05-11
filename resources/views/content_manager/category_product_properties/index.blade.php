@@ -18,7 +18,7 @@
     @foreach ($category_product_properties as $property)
         <div class="item">
             <div class="id">ID: {{ $property->id }}</div>
-            <div class="name">Название: {{ $property->name }}</div>
+            <div class="name">Название: {{ $property->property->name }}</div>
             <a
                 href="{{ route('category-product-properties.show', ['category' => $category, 'category_product_property' => $property]) }}">Подробнее</a>
         </div>

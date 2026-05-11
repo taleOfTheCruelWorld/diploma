@@ -8,7 +8,7 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 20px;
-    position:static;
+    position: static;
 }
 
 .container a {
@@ -63,13 +63,13 @@
     height: fit-content;
 }
 
-.container form .input_div{
+.container form .input_div {
     display: flex;
     flex-flow: column nowrap;
     gap: 6px;
 }
 
-.container form .input_div select{
+.container form .input_div select {
     background: none;
     border: 1px solid var(--color1);
     font-size: 1.25rem;
@@ -88,12 +88,12 @@
     font-size: 1.25rem;
 }
 
-.container form .input_div input:focus{
+.container form .input_div input:focus {
     border: 1px solid var(--color1);
 }
 
-.container form>input{
-      background-color: var(--color1);
+.container form>input {
+    background-color: var(--color1);
     border: none;
     color: white;
     height: 40px;
@@ -104,4 +104,27 @@
 
 .container form>input:hover {
     background-color: var(--button-active);
+}
+
+form>input {
+    background-color: var(--color1);
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    transition: .2s;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+form>input:hover {
+    background-color: var(--button-active);
+}
+
+.danger{
+    background-color: red;
+}
+
+.danger:hover{
+    background-color: rgb(253, 93, 93);
 }

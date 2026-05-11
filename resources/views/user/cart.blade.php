@@ -19,13 +19,13 @@
                                 class="name">{{ $product->product->name }}</a>
                             <div class="price">{{ $product->product->price }} Руб.</div>
                             <form
-                                action="{{ route('user.set-count-of-cart-item', ['product' => $product->product, 'userCartItem' => $product]) }}"
+                                action="{{ route('user.set-count-of-cart-item', ['userCartItem' => $product]) }}"
                                 method="post">
                                 <input type="text" name="count" value="{{ $product->count }}">
                                 <button>Сохранить</button>
                             </form>
                             <form
-                                action="{{ route('user.remove-from-cart', ['product' => $product->product, 'userCartItem' => $product]) }}"
+                                action="{{ route('user.remove-from-cart', ['userCartItem' => $product]) }}"
                                 method="post">
                                 <button>Удалить из корзины</button>
                             </form>
