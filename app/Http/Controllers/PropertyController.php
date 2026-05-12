@@ -92,7 +92,6 @@ class PropertyController extends Controller
     {
         $messages = [
             'name.required' => 'Поле имя обязательно к заполнению',
-            'name.unique' => 'Это название уже занято',
             'type.required' => 'Поле Тип обязательно к заполнению',
             'group.required' => 'Поле Группа обязательно к заполнению',
             'group.exists' => 'Такой группы не существует',
@@ -101,7 +100,7 @@ class PropertyController extends Controller
 
         $request->validate(
             [
-                'name' => 'bail|required|unique:properties',
+                'name' => 'bail|required',
                 'type' => 'bail|required',
                 'group' => 'required|exists:product_property_groups,id',
             ],

@@ -32,13 +32,14 @@ class UserOrderStatusController extends Controller
     {
         $messages = [
             'name.required' => 'Поле имя обязательно к заполнению',
+            'name.unique'=>'Это название уже занято',
             'description.required' => 'Поле описание обязательно к заполнению',
         ];
 
 
         $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required|unique:user_order_statuses',
                 'description' => 'required',
             ],
             $messages

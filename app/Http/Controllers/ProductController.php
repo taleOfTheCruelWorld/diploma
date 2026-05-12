@@ -38,6 +38,7 @@ class ProductController extends Controller
         $messages = [
             'category' => 'Поле категория обязательно к заполнению',
             'name.required' => 'Поле имя обязательно к заполнению',
+            'name.unique'=>'Это имя уже занято',
             'price.required' => 'Поле цена обязательно к заполнению',
             'price.integer' => 'Поле цена целочисленное',
             'description.required' => 'Поле описание обязательно к заполнению',
@@ -50,7 +51,7 @@ class ProductController extends Controller
         $request->validate(
             [
                 'category' => 'required',
-                'name' => 'bail|required',
+                'name' => 'bail|required|unique',
                 'price' => 'bail|required|integer',
                 'description' => 'bail|required',
                 'count' => 'bail|required|integer|gt:-1',

@@ -35,12 +35,13 @@ class ProductPropertyGroupController extends Controller
     {
         $messages = [
             'name.required' => 'Поле имя обязательно к заполнению',
+            'name.unique'=>'Это название уже занято'
         ];
 
 
         $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required}unique:product_property_groups',
             ],
             $messages
         );
