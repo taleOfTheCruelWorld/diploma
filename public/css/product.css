@@ -20,6 +20,8 @@
     flex-flow: column wrap;
     gap: 10px;
     padding: 10px;
+    box-shadow: 1px 1px 4px var(--color2);
+    border-radius: 10px;
 }
 
 .product .media {
@@ -90,12 +92,16 @@
 .product-data {
     display: flex;
     flex-flow: column nowrap;
+    box-shadow: 1px 1px 4px var(--color2);
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .product-extend-data {
     display: flex;
     flex-flow: column;
     width: 100%;
+
 }
 
 .comments {
@@ -114,7 +120,8 @@
 .comment_list .comment {
     display: flex;
     flex-flow: column nowrap;
-    border: 1px solid black;
+    box-shadow: 1px 1px 4px var(--color2);
+    border-radius: 10px;
     padding: 10px;
 }
 
@@ -123,7 +130,7 @@
 }
 
 .comment_list .comment img {
-     max-height: 200px;
+    max-height: 200px;
     max-width: 200px;
 }
 
@@ -131,6 +138,9 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
+      box-shadow: 1px 1px 4px var(--color2);
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .to_comment_form .input-div {
@@ -145,7 +155,8 @@
     color: var(--color1);
 }
 
-.to_comment_form .input-div select, .to_comment_form .input-div textarea{
+.to_comment_form .input-div select,
+.to_comment_form .input-div textarea {
     border: 1px solid var(--color1);
     width: 300px;
     font-size: 1rem;
@@ -160,7 +171,7 @@
 
 .to_comment_form .input-div input {
     position: absolute;
-    opacity:0;
+    opacity: 0;
     z-index: 1;
     cursor: pointer;
     width: 100%;

@@ -23,19 +23,22 @@
 
 <body>
     <header>
-        <nav>
+        <div class="nav-mobile">
+            Меню
+        </div>
+        <nav class="main_nav">
             <a href="{{ route('categories.index') }}">Категории продуктов ({{ Category::count() }})</a>
             <a href="{{ route('products.index') }}">Продукты ({{ Product::count() }})</a>
             <a href="{{ route('product-property-groups.index') }}">Группы характеристик продуктов
                 ({{ ProductPropertyGroup::count() }})</a>
-                  <a href="{{ route('properties.index') }}">Характеристики продуктов
+            <a href="{{ route('properties.index') }}">Характеристики продуктов
                 ({{ Property::count() }})</a>
         </nav>
     </header>
     <div class="content">
         @yield('content')
     </div>
-
+    <script src="{{ asset('js/menu.js') }}"></script>
 </body>
 
 </html>

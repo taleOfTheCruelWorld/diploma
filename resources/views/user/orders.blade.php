@@ -26,7 +26,6 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="line"></div>
             @endforeach
             @forelse($orders as $order)
             @empty

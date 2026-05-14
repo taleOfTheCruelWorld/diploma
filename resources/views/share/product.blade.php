@@ -64,9 +64,10 @@
             <div class="">Оценка: {{ $mark }}/10 | Отзывов: {{ $comment_count }}</div>
             <form action="{{ route('user.make-comment', ['product' => $product]) }}" class="to_comment_form" method="post"
                 enctype="multipart/form-data">
+                @csrf
                 <div class="input-div">
                     <label for="">*Оценка</label>
-                    <select name="mark">
+                    <select name="mark" id="mark">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -81,7 +82,7 @@
                 </div>
                 <div class="input-div">
                     <label for="">*Комментарий</label>
-                    <textarea name="text"></textarea>
+                    <textarea name="text" id="text"></textarea>
                 </div>
                 <div class="input-div">
                     <label id="comment_image">Выбрать изображение</label>
@@ -115,4 +116,5 @@
         var splide = new Splide('.splide');
         splide.mount();
     </script>
+    <script src="{{ asset('js/makeComment.js') }}"></script>
 @endsection

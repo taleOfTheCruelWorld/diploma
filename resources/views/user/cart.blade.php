@@ -41,15 +41,15 @@
             <div class="make-order-form">
                 <h2>Оформление заказа</h2>
                 <form action="{{ route('user.make-order') }}" method="post">
-                    <div class="input-div">
+                    <div class="input_div">
                         <label for="">ФИО</label>
                         <input type="text" name="fio">
                     </div>
-                    <div class="input-div">
+                    <div class="input_div">
                         <label for="">Адрес</label>
                         <input type="text" name="adress">
                     </div>
-                    <div class="input-div">
+                    <div class="input_div">
                         <label for="">Контактный номер телефона</label>
                         <input type="text" name="phone" value="{{ Auth::user()->phone }}">
                     </div>

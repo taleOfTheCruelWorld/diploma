@@ -4,15 +4,15 @@
     --button-active: #08dfdf;
 }
 
-.cart{
+.cart {
     display: flex;
     flex-flow: row wrap;
+    gap: 20px;
 }
 
 .cart-items {
     flex-grow: 1;
     display: flex;
-
     flex-flow: column nowrap;
     gap: 20px;
 }
@@ -21,6 +21,9 @@
     display: flex;
     flex-flow: row wrap;
     gap: 30px;
+    box-shadow: 1px 1px 4px var(--color2);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .product .image {
@@ -69,24 +72,56 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     gap: 10px;
     width: fit-content;
+    box-shadow: 1px 1px 4px var(--color2);
+    padding: 20px;
+    border-radius: 10px;
 }
 
-.make-order-form form{
+.make-order-form form {
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
 }
 
-.make-order-form form .input-div {
+.make-order-form form .input_div {
     display: flex;
     flex-flow: column nowrap;
     gap: 6px;
     justify-content: center;
 }
 
-.total-cost{
+.make-order-form form>input {
+    background-color: var(--color1);
+    border: none;
+    color: white;
+    height: 40px;
+    font-size: 1.25rem;
+    transition: .2s;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.make-order-form form .input_div input {
+    height: 30px;
+    border: 1px solid var(--color1);
+    background: none;
+    color: var(--color1);
+    font-size: 1rem;
+    padding-left: 6px;
+    width: 300px;
+    font-size: 1.25rem;
+}
+
+.make-order-form form .input_div input:focus {
+    border: 1px solid var(--color1);
+}
+
+.make-order-form form>input:hover {
+    background-color: var(--button-active);
+}
+
+.total-cost {
     font-size: 1.5rem;
 }

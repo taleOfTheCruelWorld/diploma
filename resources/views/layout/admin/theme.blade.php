@@ -20,7 +20,10 @@
 
 <body>
     <header>
-        <nav>
+        <div class="nav-mobile">
+            Меню
+        </div>
+        <nav class="main_nav">
             <a href="{{ route('user-order-statuses.index') }}">Статусы заказов пользователей
                 ({{ UserOrderStatus::count() }})</a>
             <a href="{{ route('admin.user-orders.index') }}">Заказы пользователей ({{ UserOrder::count() }})</a>
@@ -30,7 +33,7 @@
     <div class="content">
         @yield('content')
     </div>
-
+    <script src="{{ asset('js/menu.js') }}"></script>
 </body>
 
 </html>

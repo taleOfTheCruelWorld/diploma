@@ -1,7 +1,16 @@
+:root {
+    --color1: #52339A;
+    --color2: #05B1B1;
+    --button-active: #08dfdf;
+}
+
 .orders {
     display: flex;
     flex-flow: column nowrap;
     gap: 40px;
+    box-shadow: 1px 1px 4px var(--color2);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .order {
@@ -31,22 +40,16 @@
     flex-grow: 1;
 }
 
-.order .product .product .image {
+.order .products .product .image {
     width: 300px;
     height: 300px;
 }
 
-.order .product .product .image img {
+.order .products .product .image img {
     width: 300px;
     height: 300px;
 }
 
-.order .product .product a {}
+.order .products .product a {}
 
-.order .product .product p {}
-
-.line{
-    height: 2px;
-    background: black;
-    width: 100%;
-}
+.order .products .product p {}
