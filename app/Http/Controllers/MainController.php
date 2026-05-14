@@ -103,7 +103,7 @@ class MainController extends Controller
                                 if ($propValue == $val) {
                                     $data['fr' . $filter][$i] = true;
                                     return $item;
-                                } 
+                                }
                                 $i++;
                             }
                         });
@@ -120,13 +120,9 @@ class MainController extends Controller
         return view('share.search', $data);
     }
 
-    public function filter(Request $request, $data)
-    {
-
-    }
-
     public function makeComment(Request $request, Product $product)
     {
+
         if (!$product->id) {
             return back();
         }
@@ -164,8 +160,8 @@ class MainController extends Controller
 
             $media->save();
         }
+        return response()->json($comment);
 
-        return to_route('product', ['product' => $product]);
     }
 
     public function cart()
