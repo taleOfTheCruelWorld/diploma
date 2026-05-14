@@ -128,6 +128,8 @@ body footer {
     padding: 20px;
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
+    align-items: start;
     gap: 20px;
     background-color: #faf8f8;
 }
@@ -137,7 +139,7 @@ body footer .column {
     flex-flow: column nowrap;
     gap: 10px;
     justify-content: center;
-    align-items: center;
+    max-width: 300px;
 }
 
 body footer .column .title {
@@ -150,6 +152,12 @@ body footer .column .data {
     flex-flow: column nowrap;
     gap: 6px;
     font-size: 1rem;
+}
+
+body footer .column .data a{
+    font-size: 1rem;
+    color: var(--color2);
+    text-decoration: underline;
 }
 
 

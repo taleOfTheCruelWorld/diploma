@@ -18,7 +18,7 @@
 
     <header>
         <div class="nav-mobile">
-         Меню
+            Меню
         </div>
         <nav class="main_nav">
             <a href="{{ route('index') }}">
@@ -40,7 +40,7 @@
                 <a href="{{ route('login') }}">Войти</a>
             @endguest
         </nav>
-         <div class="category_list">
+        <div class="category_list">
             <div class="scroll">
                 <button type="button" id="scroll_category_down">&lt</button>
                 <button type="button" id="scroll_category_up">&gt</button>
@@ -52,13 +52,34 @@
             </div>
         </div>
     </header>
-        
+
     <div class="content">
         @yield('content')
     </div>
 
     <footer>
-
+        <div class="column">
+            <div class="title">Компания</div>
+            <div class="data">
+                <a href="#">О компании</a>
+                <a href="#">Новости</a>
+                <a href="#">Партнерам</a>
+                <a href="#">Политика в отношении обработки конфиденциальных данных</a>
+                <a href="#">Правила продаж</a>
+                <a href="#">Правила пользования сайта</a>
+            </div>
+        </div>
+        <div class="column">
+            <div class="title">Покупателям</div>
+            <div class="data">
+                <a href="#">Как оформить заказ</a>
+                <a href="#">Способы оплаты</a>
+                <a href="#">Доставка</a>
+                <a href="#">Статус заказа</a>
+                <a href="#">Обмен, возврат</a>
+                <a href="#">Юридическим лицам</a>
+            </div>
+        </div>
     </footer>
 
     <script src="{{ asset('js/category_list_slider.js') }}"></script>
