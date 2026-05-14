@@ -8,9 +8,9 @@
         </div>
         <div class="actions">
             <form method="post"
-                action="{{ route('category-product-properties.destroy', ['category' => $category_product_property->category_id, 'category_product_property' => $category_product_property]) }}">
+                action="{{ route('category-product-properties.destroy', ['category' => $category_product_property->category, 'category_product_property' => $category_product_property]) }}">
                 <a
-                    href="{{ route('category-product-properties.edit', ['category' => $category_product_property->category_id, 'category_product_property' => $category_product_property]) }}">Изменить</a>
+                    href="{{ route('category-product-properties.edit', ['category' => $category_product_property->category, 'category_product_property' => $category_product_property]) }}">Изменить</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit">Удалить</button>

@@ -14,7 +14,7 @@
     display: flex;
     flex-flow: row wrap;
     gap: 20px;
-    box-shadow: 0 0 4px 0px var(--color2);
+    box-shadow: 1px 1px 4px 0px var(--color2);
     padding: 20px;
     border-radius: 10px;
 

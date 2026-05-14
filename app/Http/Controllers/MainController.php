@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductComment;
 use App\Models\ProductCommentMediaFile;
 use App\Models\ProductProperty;
+use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,29 +59,70 @@ class MainController extends Controller
 
     public function search(Request $request)
     {
+        // dd($request->all());
         if (strlen($request->q) == 0) {
             return back();
         }
-        $result = Product::whereLike('name', "%{$request->q}%")->first();
-        if ($result) {
-            $data['category'] = $result->category;
-            $result = $result->category->products->filter(function ($item) {
-                if (stripos(mb_convert_encoding($item->name, 'ASCII'), mb_convert_encoding($_REQUEST['q'], 'ASCII')) !== false) {
-                    return $item;
-                }
-            });
+
+        $result = null;
+
+        $category = Category::whereLike('name', "%{$request->q}%")->first();
+        if ($category) {
+            $result = $category->products;
         } else {
-            $result = null;
+            $product = Product::whereLike('name', $request->q)->first();
+            if ($product) {
+                $category = $product->category;
+                $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->get();
+            }
         }
+        if ($result) {
+            foreach ($request->all() as $filter => $value) {
+                $prop = Property::find($filter);
+                if ($prop) {
+                    if ($prop->type == 'integer') {
+                        $data['fr' . $filter] = $value;
+                        if ($value[0] == '') {
+                            $value[0] = ProductProperty::where('property_id', '=', $filter)->min('value');
+                        }
+                        if ($value[1] == '') {
+                            $value[1] = ProductProperty::where('property_id', '=', $filter)->max('value');
+                        }
+                        $result = $result->filter(function ($item) use ($filter, $value) {
+                            $propValue = $item->productProperties->where('property_id', '=', $filter)->first()->value;
+                            if ($propValue >= $value[0] && $propValue <= $value[1]) {
+                                return $item;
+                            }
+                        });
+                    }
+                    if ($prop->type == 'select') {
+                        $i = 0;
+                        $result = $result->filter(function ($item) use ($filter, $value, &$data, &$i) {
+                            $propValue = $item->productProperties->where('property_id', '=', $filter)->first()->value;
+                            foreach ($value as $val) {
+                                if ($propValue == $val) {
+                                    $data['fr' . $filter][$i] = true;
+                                    return $item;
+                                } 
+                                $i++;
+                            }
+                        });
+                    }
+                }
+            }
+        }
+        $data['category'] = $category;
         $data['products'] = $result;
         $data['css'] = ['css/product_list.css', 'css/products.css', 'css/filter.css', 'css/sort.css'];
         $data['q'] = $request->q;
-        $data['count'] = $request->count;
-        $data['price_from'] = $request->price_from;
-        $data['price_to'] = $request->price_to;
         $data['rating'] = $request->rating;
 
         return view('share.search', $data);
+    }
+
+    public function filter(Request $request, $data)
+    {
+
     }
 
     public function makeComment(Request $request, Product $product)

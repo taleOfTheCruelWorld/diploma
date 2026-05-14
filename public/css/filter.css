@@ -1,5 +1,66 @@
-.filter{
+:root {
+    --color1: #52339A;
+    --color2: #05B1B1;
+    --button-active: #08dfdf;
+}
+
+.filter {
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
+    box-shadow: 1px 1px 4px var(--color2);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.filter .filter_form {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    width: max-content;
+}
+
+.filter .filter_form .select {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    box-shadow: 1px 1px 3px var(--color2);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.filter .filter_form .input_div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.filter .filter_form .option {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    width: max-content;
+    box-shadow: 1px 1px 3px var(--color2);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.filter .filter_form .option .suboption {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter .filter_form>input {
+    background-color: var(--color1);
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    transition: .2s;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.filter .filter_form>input:hover {
+    background-color: var(--button-active);
 }

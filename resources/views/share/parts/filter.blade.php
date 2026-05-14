@@ -1,8 +1,10 @@
+@use(App\Models\ProductProperty)
 <div class="filter">
-    <div class="header">Фильтрация</div>
+    <h2 class="header">Фильтрация</h2> 
     <form action="{{ route('search') }}" method="get" id="filter" class="filter_form">
         <input type="text" hidden name="q" @if(isset($q))value="{{ $q }}"@endif>
-        <div class="option" name="price">
+        <div class="option">
+             <div>Цена</div>
             <div class="suboption">
                 <label for="">от</label>
                 <input type="number" name="price_from" @if(isset($price_from))value="{{$price_from}}"@endif>
@@ -16,11 +18,39 @@
             <label for="">В наличии</label>
             <input type="checkbox" name="count" value="1" @if(isset($count))checked="true" @endif>
         </div>
-        @foreach ($category->categoryProductProperties as $property)
-            <div class="option">
-                <label for="">{{ $property->name }}</label>
-                <input type="text" name="{{ $property->name }}">
+      
+        @foreach ($category->categoryProductProperties->where('used_in_filter', '=', '1') as $property)
+         @php
+                $prop = 'fr' . $property->property_id; 
+         @endphp
+        @if($property->property->type == 'integer')
+          <div class="option">
+            <div>{{ $property->property->name}} ({{ $property->property->units }})</div>
+            <div class="suboption">
+                <label for="">от</label>
+                <input type="number" name="{{ $property->property_id }}[]" @if(isset($$prop)) value="{{ $$prop[0] }}" @endif>
             </div>
+            <div class="suboption">
+                <label for="">до</label>
+                <input type="number" name="{{ $property->property_id }}[]" @if(isset($$prop)) value="{{ $$prop[1] }}" @endif>
+            </div>
+        </div>
+        @endif
+        @if($property->property->type == 'select')
+        <div class="select accordion">
+            <div>{{ $property->property->name }}</div>
+            @php
+                $i = 0;
+            @endphp
+            @foreach(ProductProperty::where('property_id', '=', $property->property->id)->distinct()->get() as $value)
+                <div class="input_div">
+                    <label for="">{{$value->value}}</label>
+                    <input type="checkbox" name="{{ $property->property_id}}[]" id="" value="{{ $value->value }}" @if(isset($$prop[$i])) checked="true" @endif>
+                    @php $i++; @endphp
+                </div>
+            @endforeach
+        </div>
+        @endif
         @endforeach
         <input type="submit" value="Применить" class="filter_btn">
     </form>
