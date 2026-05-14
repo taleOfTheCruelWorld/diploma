@@ -18,5 +18,5 @@
             <h1>По вашему запросу ничего не найдено</h1>
         </div>
     @endif
-   
+    <script src="{{ asset('js/accordion.js') }}"></script>
 @endsection

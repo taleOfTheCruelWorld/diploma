@@ -29,10 +29,36 @@
     border-radius: 10px;
 }
 
-.filter .filter_form .input_div {
+.filter .filter_form .select .data {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    align-items: center;
+}
+
+.filter .filter_form .select .data .btn {
+    font-size: 20pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s;
+}
+
+.filter .filter_form .select .options {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    transition: 2s;
+    overflow: hidden;
+}
+
+.filter .filter_form .select .options .input_div {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    align-items: center;
 }
 
 .filter .filter_form .option {
@@ -48,6 +74,7 @@
 .filter .filter_form .option .suboption {
     display: flex;
     justify-content: space-between;
+    gap: 6px;
 }
 
 .filter .filter_form>input {

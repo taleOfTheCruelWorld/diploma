@@ -16,14 +16,13 @@
 }
 
 body {
-    color: var(--color2)
+    color: var(--color2);
 }
 
 header {
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
-    padding: 10px;
 }
 
 header nav {
@@ -35,7 +34,7 @@ header nav {
     padding: 20px 0px;
 }
 
-header nav .logo{
+header nav .logo {
     height: 70px;
     width: 70px;
 }
@@ -76,13 +75,27 @@ header .category_list .scroll {
     padding: 0px 20px
 }
 
-header .category_list .scroll button {}
+header .category_list .scroll button {
+    background: var(--color1);
+    color: white;
+    font-size: 1rem;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    transition: .1s;
+    cursor: pointer;
+}
+
+header .category_list .scroll button:hover {
+    background-color: var(--button-active);
+}
 
 header .category_list .categories {
     display: flex;
     flex: row nowrap;
     overflow: scroll;
     gap: 20px;
+    background-color: rgba(1, 1, 1, .03);
 }
 
 header .category_list .categories a {
@@ -101,12 +114,45 @@ header .category_list .categories a:hover {
 
 body .content {
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 50px auto;
     display: flex;
     flex-flow: column nowrap;
     gap: 20px;
     padding: 20px;
+    background-color: #faf8f8;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px black;
 }
+
+body footer {
+    padding: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 20px;
+    background-color: #faf8f8;
+}
+
+body footer .column {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+body footer .column .title {
+    color: var(--color1);
+    font-size: 1.25rem;
+}
+
+body footer .column .data {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 6px;
+    font-size: 1rem;
+}
+
+
 
 @media screen and (width <=600px) {
     header nav {

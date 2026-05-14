@@ -14,9 +14,11 @@
                 <input type="number" name="price_to" @if(isset($price_to))value="{{$price_to}}"@endif>
             </div>
         </div>
-        <div class="option">
-            <label for="">В наличии</label>
-            <input type="checkbox" name="count" value="1" @if(isset($count))checked="true" @endif>
+        <div class="select">
+            <div class="input_div">
+                 <label for="">В наличии</label>
+                <input type="checkbox" name="count" value="1" @if(isset($count))checked="true" @endif>
+            </div>
         </div>
       
         @foreach ($category->categoryProductProperties->where('used_in_filter', '=', '1') as $property)
@@ -38,10 +40,14 @@
         @endif
         @if($property->property->type == 'select')
         <div class="select accordion">
-            <div>{{ $property->property->name }}</div>
+            <div class="data">
+                <div>{{ $property->property->name }}</div>
+                <div class="btn">^</div>
+            </div>
             @php
                 $i = 0;
             @endphp
+            <div class="options" style="height:0;">
             @foreach(ProductProperty::where('property_id', '=', $property->property->id)->distinct()->get() as $value)
                 <div class="input_div">
                     <label for="">{{$value->value}}</label>
@@ -49,6 +55,8 @@
                     @php $i++; @endphp
                 </div>
             @endforeach
+            </div>
+           
         </div>
         @endif
         @endforeach

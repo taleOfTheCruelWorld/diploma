@@ -87,12 +87,28 @@
     background-color: var(--button-active);
 }
 
-.auth_form .data label{
+.auth_form .data label {
     color: white;
 }
 
-.auth_form .data select{
+.auth_form .data select {
     background-color: #424242;
     border: none;
     color: white;
+}
+
+header {
+    display: none !important;
+}
+
+footer {
+    display: none !important;
+}
+
+.content {
+    padding: 0 !important;
+    margin: 0 auto !important;
+    height: 100vh !important;
+    width: 100vw !important;
+
 }

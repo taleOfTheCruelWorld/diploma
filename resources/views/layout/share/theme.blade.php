@@ -42,8 +42,8 @@
         </nav>
          <div class="category_list">
             <div class="scroll">
-                <button type="button" id="scroll_category_down">left</button>
-                <button type="button" id="scroll_category_up">right</button>
+                <button type="button" id="scroll_category_down">&lt</button>
+                <button type="button" id="scroll_category_up">&gt</button>
             </div>
             <div class="categories" id="categories">
                 @foreach (Category::all() as $category)
