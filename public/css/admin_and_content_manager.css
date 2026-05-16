@@ -53,12 +53,7 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+    margin: 0 auto;
     width: fit-content;
     height: fit-content;
 }
@@ -121,10 +116,10 @@ form>input:hover {
     background-color: var(--button-active);
 }
 
-.danger{
+.danger {
     background-color: red;
 }
 
-.danger:hover{
+.danger:hover {
     background-color: rgb(253, 93, 93);
 }

@@ -31,31 +31,48 @@
             <div class="comments-media-div">
                 @foreach ($product_comments as $comment)
                     @if($comment->productCommentMediaFiles->first())
-                        <div class="comment-media-file">
-                            <a href="{{ asset('storage/' . $comment->productCommentMediaFiles->first()->path)}}"><img
-                                    src="{{ asset('storage/' . $comment->productCommentMediaFiles->first()->path) }}"
-                                    class="comment-media-image"></a>
-                        </div>
+                        @foreach ($comment->productCommentMediaFiles as $media)
+                            <div class="comment-media-file">
+                                <a href="{{ asset('storage/' . $media->path)}}"><img src="{{ asset('storage/' . $media->path) }}"
+                                        class="comment-media-image"></a>
+                            </div>
+                        @endforeach
                     @endif
                 @endforeach
             </div>
             <div class="product-data">
-                <div class="description">{{ $product->description }}</div>
-                <h2>Характеристики</h2>
+                <div class="description">
+                    <h2>Описание</h2>
+                    <p>{{ $product->description }}</p>
+                </div>
+               
                 <div class="product-properties">
+                     <h2>Характеристики</h2>
                     @php
-                        $current_group = '';
+                        $current_group = $product_properties->first()->property->productPropertyGroup->id;
                     @endphp
 
-                    @foreach ($product_properties as $property)
-                        @if($current_group != $property->property->productPropertyGroup->id)
-                            <h2>{{ $property->property->productPropertyGroup->name }}</h2>
+                    @for ($i = 0; $i < $product_properties->count(); $i++)
+                        <div class="group">
+                            <h3>{{ $product_properties[$i]->property->productPropertyGroup->name }}</h3>
+                            @for ($i; $i < $product_properties->count(); $i++)
                             @php
-                                $current_group = $property->property->productPropertyGroup->id;
+                            $property = $product_properties[$i];
                             @endphp
-                        @endif
-                       <div>{{ $property->property->name }}: {{ $property->value }}</div>
-                    @endforeach
+                                @if($current_group != $product_properties[$i]->property->productPropertyGroup->id)
+                                    @php   
+                                        $current_group = $property->property->productPropertyGroup->id;
+                                        $i--;
+                                    @endphp
+                                    @break
+                                @endif
+                                <div class="property">{{ $property->property->name }} ({{ $property->property->units }}):
+                                    {{ $property->value }}</div>
+                            @endfor
+                        </div>
+                    @endfor
+
+
                 </div>
             </div>
         </div>
@@ -86,7 +103,7 @@
                 </div>
                 <div class="input-div">
                     <label id="comment_image">Выбрать изображение</label>
-                    <input type="file" name="image">
+                    <input type="file" name="images" multiple id="images">
                 </div>
                 <input type="submit" value="Отправить" class="comment_btn">
                 @foreach ($errors->all() as $error)
@@ -100,9 +117,14 @@
                         <p>Оценка: {{ $comment->mark }}</p>
                         <p>{{ $comment->text }}</p>
                         @if($comment->productCommentMediaFiles->first())
-                            <a href="{{ asset('storage/' . $comment->productCommentMediaFiles->first()->path)}}"><img
-                                    src="{{ asset('storage/' . $comment->productCommentMediaFiles->first()->path) }}"
-                                    class="comment-media-image"></a>
+                            <div class="media-files">
+                                @foreach ($comment->productCommentMediaFiles as $media)
+                                    <div class="comment-media-file">
+                                        <a href="{{ asset('storage/' . $media->path)}}"><img
+                                                src="{{ asset('storage/' . $media->path) }}" class="comment-media-image"></a>
+                                    </div>
+                                @endforeach
+                            </div>
                         @endif
                     </div>
 
@@ -117,4 +139,6 @@
         splide.mount();
     </script>
     <script src="{{ asset('js/makeComment.js') }}"></script>
+    <script src="{{ asset('js/toCart.js') }}"></script>
+    <script src="{{ asset('js/toFavorite.js') }}"></script>
 @endsection

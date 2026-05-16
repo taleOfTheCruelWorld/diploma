@@ -17,7 +17,7 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
-    width: max-content;
+    width: 100%;
 }
 
 .filter .filter_form .select {
@@ -33,7 +33,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    width: 100%;
+    flex: 1;
     cursor: pointer;
     align-items: center;
 }
@@ -65,7 +65,7 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
-    width: max-content;
+    flex: 1;
     box-shadow: 1px 1px 3px var(--color2);
     padding: 10px;
     border-radius: 10px;
@@ -75,6 +75,10 @@
     display: flex;
     justify-content: space-between;
     gap: 6px;
+}
+
+.filter .filter_form .option .suboption input{
+
 }
 
 .filter .filter_form>input {

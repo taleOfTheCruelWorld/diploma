@@ -4,11 +4,17 @@ const submit = document.querySelector('.comment_btn');
 const url = form.getAttribute('action');
 
 function collectData() {
-    let data = {};
+    const data = new FormData();
 
-    data['mark'] = form.querySelector('#mark').value;
-    data['text'] = form.querySelector('#text').value;
+    data.append('mark', form.querySelector('#mark').value);
+    data.append('text', form.querySelector('#text').value);
 
+    const images = form.querySelector('#images').files;
+    for (let i = 0; i < images.length; i++) {
+        data.append('images[]', images[i]);
+    }
+
+    data.append('_token', form.querySelector('[name="_token"]').value);
     return data;
 }
 
@@ -16,11 +22,7 @@ async function sendForm(url, data) {
 
     await fetch(url, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            'X-CSRF-TOKEN': form.querySelector('[name="_token"]').value
-        },
-        body: JSON.stringify(data),
+        body: data,
     }).then(response => {
 
         if (!response.ok) {
@@ -29,7 +31,8 @@ async function sendForm(url, data) {
         return response.json();
     })
         .then(data => {
-            alert('Комментарий доставлен');
+            console.log(data);
+            //alert('Комментарий доставлен');
         })
         .catch((error) => {
             alert('Что-то пошло не так...');

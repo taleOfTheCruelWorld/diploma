@@ -8,15 +8,15 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 40px;
-    box-shadow: 1px 1px 4px var(--color2);
-    padding: 10px;
-    border-radius: 10px;
 }
 
 .order {
     display: flex;
     flex-flow: column nowrap;
     gap: 20px;
+    box-shadow: 1px 1px 4px var(--color2);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .order .data {
@@ -37,17 +37,17 @@
 .order .products .product {
     display: flex;
     flex-flow: column nowrap;
-    flex-grow: 1;
+    width: fit-content;
 }
 
 .order .products .product .image {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 150px;
 }
 
 .order .products .product .image img {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 150px;
 }
 
 .order .products .product a {}

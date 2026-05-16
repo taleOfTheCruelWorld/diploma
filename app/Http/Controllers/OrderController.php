@@ -12,6 +12,14 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
+
+        foreach (Auth::user()->userCartItems as $item) {
+            $product = $item->product;
+            if ($product->count < $item->count) {
+                return back();
+            }
+        }
+
         if (!Auth::user()->userCartItems->first()) {
             return to_route('user.cart');
         }

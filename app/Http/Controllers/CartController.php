@@ -11,15 +11,18 @@ class CartController extends Controller
 {
     public function addToCart(Product $product)
     {
+
         if (!$product->id) {
-            return back();
+            return response()->json(['text' => 'Несуществующий продукт!']);
         }
         if ($product->count <= 0) {
-            return back();
+            return response()->json(['text' => 'Продукта нет в наличии!']);
         }
         $cartItem = Auth::user()->userCartItems->where('product_id', $product->id)->first();
         if ($cartItem && $product->count >= $cartItem->count + 1) {
             $cartItem->count += 1;
+            $cartItem->save();
+            return response()->json(['text' => 'Товар добален в корзину', 'product' => 'exists']);
         } else {
             $cartItem = new UserCartItem();
 
@@ -30,14 +33,14 @@ class CartController extends Controller
 
         $cartItem->save();
 
-        return Back();
+        return response()->json(['text' => 'Товар добален в корзину', 'product' => 'not-exists']);
     }
 
     public function removeFromCart(UserCartItem $userCartItem)
     {
         $userCartItem->delete();
 
-        return back();
+         return response(['text'=>'Продукт успешно удален из корзины!']);
     }
 
     public function setProductCount(Request $request, UserCartItem $userCartItem)
@@ -56,12 +59,12 @@ class CartController extends Controller
             $messages
         );
         if ($request->count > $userCartItem->product->count) {
-            return back();
+            return response()->json(['text' => 'Недостаточно товара в наличии!']);
         }
 
         $userCartItem->count = $request->count;
         $userCartItem->save();
 
-        return back();
+        return response()->json(['text' => 'Количество товара сохранено!']);
     }
 }

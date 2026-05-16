@@ -11,7 +11,10 @@ class FavoriteController extends Controller
     public function addToFavorite(Product $product)
     {
         if (!$product->id) {
-            return back();
+             return response()->json(['text'=>'Такого продукта нет в наличии!']);
+        }
+        if(UserFavoriteItem::where('user_id', Auth::user()->id)->where('product_id', $product->id)->first()){
+            return response()->json(['text'=>'Продукт уже находится в вашем избранном!']);
         }
         $fav = new UserFavoriteItem();
 
@@ -20,12 +23,12 @@ class FavoriteController extends Controller
 
         $fav->save();
 
-        return back();
+        return response()->json(['text'=>'Продукт успешно добавлен в избранное!', 'product'=>'exists']);
     }
 
     public function removeFromFavorite(Product $product, UserFavoriteItem $userFavoriteItem)
     {
         $userFavoriteItem->delete();
-        return back();
+        return response(['text'=>'Продукт успешно удален из избранного!']);
     }
 }

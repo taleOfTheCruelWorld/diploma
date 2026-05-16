@@ -10,24 +10,28 @@
                 @endphp
                 @foreach ($cart_items as $product)
                     <div class="product">
+                        @if($product->product->productMediaFiles->first())
                         <div class="image">
                             <img src="{{ asset('storage/' . $product->product->productMediaFiles->first()->path) }}"
                                 alt="image">
                         </div>
+                        @endif
                         <div class="actions">
                             <a href="{{ route('product', ['product' => $product->product]) }}"
                                 class="name">{{ $product->product->name }}</a>
-                            <div class="price">{{ $product->product->price }} Руб.</div>
+                            <div class="price"><span class="value">{{ $product->product->price }} </span><span class="currency">Руб.</span></div>
                             <form
                                 action="{{ route('user.set-count-of-cart-item', ['userCartItem' => $product]) }}"
-                                method="post">
-                                <input type="text" name="count" value="{{ $product->count }}">
-                                <button>Сохранить</button>
+                                method="post" class="set-cart-item-count_form">
+                                @csrf
+                                <input type="text" class="count" name="count" value="{{ $product->count }}">
+                                <button class="set-cart-item-count_btn">Сохранить</button>
                             </form>
                             <form
                                 action="{{ route('user.remove-from-cart', ['userCartItem' => $product]) }}"
-                                method="post">
-                                <button>Удалить из корзины</button>
+                                method="post" class="remove-from-cart_form">
+                                @csrf
+                                <button class="remove-from-cart_btn">Удалить из корзины</button>
                             </form>
                         </div>
                         @php 
@@ -41,6 +45,7 @@
             <div class="make-order-form">
                 <h2>Оформление заказа</h2>
                 <form action="{{ route('user.make-order') }}" method="post">
+                    @csrf
                     <div class="input_div">
                         <label for="">ФИО</label>
                         <input type="text" name="fio">
@@ -63,5 +68,8 @@
            <div>Упс! Кажется здесь ничего нет!</div>
             @endif
         </div>
+
+        <script src="{{ asset('js/removeFromCart.js') }}"></script>
+        <script src="{{ asset('js/saveCartItemCount.js') }}"></script>
 
 @endsection

@@ -41,7 +41,7 @@ class MainController extends Controller
         $data['css'] = ['/css/product.css', 'js/splide-4.1.3/dist/css/splide.min.css'];
         $data['comment_count'] = $product->productComments->count();
         if ($data['comment_count'] > 0) {
-            $data['mark'] = $product->productComments->sum('mark') / $data['comment_count'];
+            $data['mark'] = round($product->productComments->sum('mark') / $data['comment_count'], 1);
         } else {
             $data['mark'] = 0;
         }
@@ -149,16 +149,19 @@ class MainController extends Controller
 
         $comment->save();
 
-        if ($request->image) {
-            $media = new ProductCommentMediaFile();
 
-            $media->product_comment_id = $comment->id;
+        if ($request->images) {
+            foreach ($request->images as $image) {
+                $media = new ProductCommentMediaFile();
 
-            $fileName = time() . $request->image->getClientOriginalName();
-            $path = $request->image->storeAs('product_media_files', $fileName, 'public');
-            $media->path = $path;
+                $media->product_comment_id = $comment->id;
 
-            $media->save();
+                $fileName = time() . $image->getClientOriginalName();
+                $path = $image->storeAs('product_media_files', $fileName, 'public');
+                $media->path = $path;
+
+                $media->save();
+            }
         }
         return response()->json($comment);
 

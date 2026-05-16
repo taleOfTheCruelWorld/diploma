@@ -1,4 +1,5 @@
 @use('App\Models\Category')
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,9 +32,9 @@
                 <input type="text" name="q" @if(isset($q)) value="{{ $q }}" @endif>
             </form>
             @auth
-                <a href="{{ route('user.favorite') }}">Избранное</a>
-                <a href="{{ route('user.cart') }}">Корзина</a>
-                <a href="{{ route('user.orders') }}">История заказов</a>
+                <a href="{{ route('user.favorite') }}">Избранное (<span id="favorite-count">{{ Auth::user()->userFavoriteItems->count()}}</span>)</a>
+                <a href="{{ route('user.cart') }}">Корзина (<span id="cart-count">{{ Auth::user()->userCartItems->count()}}</span>)</a>
+                <a href="{{ route('user.orders') }}">История заказов (<span id="orders-count">{{ Auth::user()->userOrders->count()}}</span>)</a>
                 <a href="{{ route('logout') }}">Выйти</a>
             @endauth
             @guest

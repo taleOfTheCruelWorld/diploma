@@ -41,7 +41,7 @@ class ProductPropertyGroupController extends Controller
 
         $request->validate(
             [
-                'name' => 'required}unique:product_property_groups',
+                'name' => 'required|unique:product_property_groups',
             ],
             $messages
         );

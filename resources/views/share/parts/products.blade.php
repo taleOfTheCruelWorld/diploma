@@ -10,14 +10,19 @@
                 <a href="{{ route('product', ['product' => $product]) }}" class="name">{{ $product->name }}</a>
             </div>
             <div class="actions">
-                <div class="price">{{ $product->price }} руб.</div>
-                <form action="{{ route('user.add-to-favorite', ['product' => $product]) }}" method="post">
-                    <button class="add-to-favorite">В избранное</button>
-                </form>
-                <form action="{{ route('user.add-to-cart', ['product' => $product]) }}" method="post">
-                    <button class="add-to-cart">В корзину</button>
-                </form>
+                    <div class="price">{{ $product->price }} руб.</div>
+                    <form action="{{ route('user.add-to-favorite', ['product' => $product]) }}" method="post" class="to-favorite_form">
+                        @csrf
+                        <button class="add-to-favorite" id="">В избранное</button>
+                    </form>
+                    <form action="{{ route('user.add-to-cart', ['product' => $product]) }}" method="post" class="to-cart_form">
+                        @csrf
+                        <button class="add-to-cart">В корзину</button>
+                    </form>
             </div>
         </div>
     @endforeach
 </div>
+
+<script src="{{ asset('js/toCart.js') }}"></script>
+<script src="{{ asset('js/toFavorite.js') }}"></script>

@@ -25,8 +25,8 @@
 }
 
 .product .media {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 275px;
 }
 
 .product .actions .cart-actions {
@@ -76,8 +76,10 @@
     width: 100%;
 }
 
-.comment-media-div {
+.comments-media-div {
+    margin: 20px 0;
     display: flex;
+    gap: 10px;
     flex-flow: row nowrap;
     overflow: scroll;
 }
@@ -85,8 +87,8 @@
 .comment-media-file {}
 
 .comment-media-file a img {
-    max-height: 200px;
-    max-width: 200px;
+    height: 150px;
+    width: 200px;
 }
 
 .product-data {
@@ -95,6 +97,21 @@
     box-shadow: 1px 1px 4px var(--color2);
     border-radius: 10px;
     padding: 10px;
+    gap: 20px;
+}
+
+.product-data .product-properties{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
+.product-data .product-properties .group{
+    
+}
+
+.product-data .product-properties .group .property{
+
 }
 
 .product-extend-data {
@@ -129,16 +146,24 @@
     color: var(--color2);
 }
 
-.comment_list .comment img {
-    max-height: 200px;
-    max-width: 200px;
+.comment_list .comment .media-files {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
+    overflow: scroll;
+    margin: 10px 0;
+}
+
+.comment_list .comment .media-files img {
+    height: 150px;
+    width: 200px;
 }
 
 .to_comment_form {
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
-      box-shadow: 1px 1px 4px var(--color2);
+    box-shadow: 1px 1px 4px var(--color2);
     border-radius: 10px;
     padding: 10px;
 }

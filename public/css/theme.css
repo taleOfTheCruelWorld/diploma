@@ -17,6 +17,11 @@
 
 body {
     color: var(--color2);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 }
 
 header {
@@ -113,6 +118,9 @@ header .category_list .categories a:hover {
 }
 
 body .content {
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: 100%;
     max-width: 1400px;
     margin: 50px auto;
     display: flex;
@@ -154,7 +162,7 @@ body footer .column .data {
     font-size: 1rem;
 }
 
-body footer .column .data a{
+body footer .column .data a {
     font-size: 1rem;
     color: var(--color2);
     text-decoration: underline;
