@@ -5,7 +5,6 @@
 }
 
 .auth_form {
-   
     margin: auto;
     height: fit-content;
     width: fit-content;
@@ -15,6 +14,9 @@
     min-width: 320px;
     max-width: 500px;
     box-shadow: #424242;
+    box-shadow: 0 0 4px var(--color2);
+    padding: 30px;
+    border-radius: 10px;
 }
 
 .auth_form .meta {
@@ -91,4 +93,9 @@
     background-color: #424242;
     border: none;
     color: white;
+}
+
+.content{
+    box-shadow: none !important;
+    background: none !important;
 }
