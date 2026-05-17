@@ -20,7 +20,7 @@ return new class extends Migration {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->foreignId('category_id')->nullable()->constrained();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->string('description');
             $table->string('slug')->unique();
             $table->timestamps();
@@ -31,13 +31,13 @@ return new class extends Migration {
             $t->string('name')->unique();
             $t->string('units')->nullable()->default(null);
             $t->string('type');
-            $t->foreignId('product_property_group_id')->constrained();
+            $t->foreignId('product_property_group_id')->constrained()->cascadeOnDelete();
             $t->timestamps();
         });
 
         Schema::create('category_product_properties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('property_id')->constrained()->cascadeOnDelete();
             $table->boolean('used_in_filter');
             $table->timestamps();
@@ -45,7 +45,7 @@ return new class extends Migration {
 
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('name')->unique();
             $table->string('price');
             $table->string('description');
@@ -57,7 +57,7 @@ return new class extends Migration {
 
         Schema::create('product_comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_active');
             $table->string('text');
@@ -90,14 +90,14 @@ return new class extends Migration {
         Schema::create('user_favorite_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
 
         Schema::create('user_cart_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->integer('count', false, true)->default(1);
             $table->timestamps();
         });
@@ -111,7 +111,7 @@ return new class extends Migration {
 
         Schema::create('user_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->string('fio');
             $table->string('adress');
             $table->string('phone');
@@ -123,7 +123,7 @@ return new class extends Migration {
         Schema::create('user_order_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_order_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
             $table->string('price');
             $table->integer('count');
             $table->timestamps();

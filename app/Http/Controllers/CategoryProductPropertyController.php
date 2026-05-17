@@ -41,7 +41,7 @@ class CategoryProductPropertyController extends Controller
     {
         $messages = [
             'property.required' => 'Поле Характеристика обязательно к заполнению',
-            'property.exists'=>'Такого свойства не существует',
+            'property.exists' => 'Такого свойства не существует',
             'used_in_filter.required' => 'Поле Использовать в фильтре обязательно к заполнению',
         ];
 
@@ -58,7 +58,7 @@ class CategoryProductPropertyController extends Controller
         $property->category_id = $category->id;
         $property->property_id = $request->property;
         $property->used_in_filter = $request->used_in_filter;
-       
+
         $property->save();
 
         foreach ($category->products as $product) {
@@ -104,7 +104,7 @@ class CategoryProductPropertyController extends Controller
     {
         $messages = [
             'property.required' => 'Поле Характеристика обязательно к заполнению',
-            'property.exists'=>'Такого свойства не существует',
+            'property.exists' => 'Такого свойства не существует',
             'used_in_filter.required' => 'Поле Использовать в фильтре обязательно к заполнению',
         ];
 
@@ -116,11 +116,20 @@ class CategoryProductPropertyController extends Controller
             ],
             $messages
         );
+        foreach ($category->products as $product) {
+            $productProperty = $product->productProperties->where('property_id', '=', $categoryProductProperty->property_id)->first();
+
+            $productProperty->property_id = $request->property;
+
+            $productProperty->save();
+        }
 
         $categoryProductProperty->property_id = $request->property;
         $categoryProductProperty->used_in_filter = $request->used_in_filter;
 
         $categoryProductProperty->save();
+
+
 
         return to_route('category-product-properties.show', ['category' => $category, 'category_product_property' => $categoryProductProperty]);
     }
@@ -130,6 +139,12 @@ class CategoryProductPropertyController extends Controller
      */
     public function destroy(Category $category, CategoryProductProperty $categoryProductProperty)
     {
+        foreach ($category->products as $product) {
+            $productProperty = $product->productProperties->where('property_id', '=', $categoryProductProperty->property_id)->first();
+
+            $productProperty->delete();
+        }
+
         $categoryProductProperty->delete();
 
         return to_route('category-product-properties.index', ['category' => $category]);

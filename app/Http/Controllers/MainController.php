@@ -8,6 +8,7 @@ use App\Models\ProductComment;
 use App\Models\ProductCommentMediaFile;
 use App\Models\ProductProperty;
 use App\Models\Property;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,7 +54,6 @@ class MainController extends Controller
             ->orderBy('product_property_group_id')
             ->get();
 
-
         return view('share.product', $data);
     }
 
@@ -76,7 +76,33 @@ class MainController extends Controller
                 $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->get();
             }
         }
+
+        // Дальше страшная фильтрация
         if ($result) {
+            if ($request->price_from == '') {
+                $request->price_from = DB::select('select min(price + 0) as min from products')[0]->min;
+            }
+            $min = $request->price_from;
+            if ($request->price_to == '') {
+                $request->price_to = DB::select('select max(price + 0) as max from products')[0]->max;
+            }
+            $max = $request->price_to;
+            $data['price_from'] = $request->price_from;
+            $data['price_to'] = $request->price_to;
+            $count = $request->count;
+            $data['count'] = $count;
+            $result = $result->filter(function ($item) use ($count, $min, $max) {
+                if ($item->price >= $min && $item->price <= $max) {
+                    if ($count) {
+                        if ($item->count > 0) {
+                            return $item;
+                        }
+                    } else {
+                        return $item;
+                    }
+                }
+            });
+
             foreach ($request->all() as $filter => $value) {
                 $prop = Property::find($filter);
                 if ($prop) {

@@ -51,7 +51,7 @@ class ProductController extends Controller
         $request->validate(
             [
                 'category' => 'required',
-                'name' => 'bail|required|unique',
+                'name' => 'bail|required|unique:products,name',
                 'price' => 'bail|required|integer',
                 'description' => 'bail|required',
                 'count' => 'bail|required|integer|gt:-1',
@@ -76,7 +76,7 @@ class ProductController extends Controller
             $productProperty = new ProductProperty();
 
             $productProperty->product_id = $product->id;
-            $productProperty->property_id = $property->id;
+            $productProperty->property_id = $property->property_id;
 
             $productProperty->save();
         }

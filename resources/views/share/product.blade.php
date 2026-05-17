@@ -50,6 +50,7 @@
                
                 <div class="product-properties">
                      <h2>Характеристики</h2>
+                     @if($product_properties->first())
                     @php
                         $current_group = $product_properties->first()->property->productPropertyGroup->id;
                     @endphp
@@ -73,8 +74,7 @@
                             @endfor
                         </div>
                     @endfor
-
-
+                     @endif
                 </div>
             </div>
         </div>
