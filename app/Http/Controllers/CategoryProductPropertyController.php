@@ -16,7 +16,7 @@ class CategoryProductPropertyController extends Controller
     public function index(Category $category)
     {
         $data['category_product_properties'] = $category->categoryProductProperties;
-        ;
+    
         $data['category'] = $category;
 
         return view('content_manager.category_product_properties.index', $data);

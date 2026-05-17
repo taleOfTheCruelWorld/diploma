@@ -26,13 +26,14 @@ class ProductPropertyController extends Controller
     {
 
         foreach ($request->all() as $q => $value) {
+
             $property = ProductProperty::where('product_id', '=', $product->id)->where('property_id', '=', $q)->first();
-            
-            $property->value = $value;
+            if ($property) {
+                $property->value = $value;
 
-            $property->save();
+                $property->save();
+            }
         }
-
         return to_route('product-properties.index', ['product' => $product]);
     }
 }
