@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->text('description');
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->timestamps();
         });
 
@@ -51,7 +51,7 @@ return new class extends Migration {
             $table->text('description');
             $table->bigInteger('count')->default(0);
             $table->boolean('is_active')->default(1);
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->timestamps();
         });
 

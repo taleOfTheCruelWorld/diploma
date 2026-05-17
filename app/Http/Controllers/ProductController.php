@@ -38,7 +38,7 @@ class ProductController extends Controller
         $messages = [
             'category' => 'Поле категория обязательно к заполнению',
             'name.required' => 'Поле имя обязательно к заполнению',
-            'name.unique'=>'Это имя уже занято',
+            'name.unique' => 'Это имя уже занято',
             'price.required' => 'Поле цена обязательно к заполнению',
             'price.integer' => 'Поле цена целочисленное',
             'description.required' => 'Поле описание обязательно к заполнению',
@@ -65,8 +65,10 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
         $product->count = $request->count;
-        $product->slug = Str::slug($request->name, '-', 'ru');
 
+        $product->save();
+
+        $product->slug = $product->id . '-' . Str::slug($request->name, '-', 'ru');
 
         $product->save();
 
@@ -137,7 +139,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
         $product->count = $request->count;
-        $product->slug = Str::slug($request->name, '-', 'ru');
+        $product->slug = $product->id . '-' . Str::slug($request->name, '-', 'ru');
 
         $product->save();
 

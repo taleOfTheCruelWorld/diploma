@@ -53,7 +53,10 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->category_id = $request->parent_category;
         $category->description = $request->description;
-        $category->slug = Str::slug($request->name, '-', 'ru');
+
+        $category->save();
+
+        $category->slug = $category->id . '-' . Str::slug($request->name, '-', 'ru');
 
         $category->save();
 
@@ -102,7 +105,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->category_id = $request->parent_category;
         $category->description = $request->description;
-        $category->slug = Str::slug($request->name, '-', 'ru');
+        $category->slug = $category->id . '-' . Str::slug($request->name, '-', 'ru');
 
         $category->save();
 
