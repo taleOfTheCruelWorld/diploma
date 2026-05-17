@@ -11,7 +11,7 @@ function confirmationFormDisappear() {
 }
 
 function acceptCookies() {
-    document.cookie = "cookie_consent=true; max-age=31536000; path=/; SameSite=Lax; Secure";
+    document.cookie = "cookie_consent=true; max-age=31536000; path=/; SameSite=Lax;";
     confirmationForm.style.opacity = '0';
     confirmationForm.addEventListener('transitionend', confirmationFormDisappear)
     confirmationForm.removeEventListener('transitionend', confirmationFormDisappear);
