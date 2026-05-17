@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->unique();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('description');
+            $table->text('description');
             $table->string('slug')->unique();
             $table->timestamps();
         });
@@ -48,7 +48,7 @@ return new class extends Migration {
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('name')->unique();
             $table->string('price');
-            $table->string('description');
+            $table->text('description');
             $table->bigInteger('count')->default(0);
             $table->boolean('is_active')->default(1);
             $table->string('slug')->unique();
@@ -60,7 +60,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_active');
-            $table->string('text');
+            $table->text('text');
             $table->tinyInteger('mark', false, true);
             $table->timestamps();
         });
@@ -98,14 +98,14 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->integer('count', false, true)->default(1);
+            $table->bigInteger('count', false, true)->default(1);
             $table->timestamps();
         });
 
         Schema::create('user_order_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
 
