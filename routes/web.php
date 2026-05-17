@@ -60,12 +60,12 @@ Route::middleware(EnsureUserIsAuthorized::class)->prefix('me')->group(function (
 
     // Отзывы к продуктам
     Route::post('/product/{product}/make-comment', [MainController::class, 'makeComment'])->name('user.make-comment');
-    
+
 });
 
 
 // CRUD для контент-менеджера
-Route::middleware(EnsureUserHasRightToGetToTheCRUD::class)->prefix('/crud')->group(function () {
+Route::middleware([EnsureUserIsAuthorized::class, EnsureUserHasRightToGetToTheCRUD::class])->prefix('/crud')->group(function () {
 
     // Главная страница контент-менеджера
     Route::get('/', [ContentManagerController::class, 'index'])->name('crud.index');
@@ -102,7 +102,7 @@ Route::middleware(EnsureUserHasRightToGetToTheCRUD::class)->prefix('/crud')->gro
 
 
 // Администратор
-Route::middleware(EnsureUserIsAdmin::class)->prefix('/admin')->group(function () {
+Route::middleware([EnsureUserIsAuthorized::class, EnsureUserIsAdmin::class])->prefix('/admin')->group(function () {
 
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 

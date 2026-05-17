@@ -2,10 +2,7 @@
 @section('content')
     <div class="container">
         <h1>Характеристики продуктов</h1>
-        <nav>
-            <a href="{{ route('properties.create') }}">Создать характеристику продуктов</a>
-        </nav>
-         <div class="search">
+          <div class="search">
             <form action="{{ route('properties.search') }}" method="get" class="search_form">
                 <div class="input_div">
                     <input type="text" name="q" placeholder="Имя или ID" @if(isset($q))value="{{ $q }}"@endif>
@@ -13,6 +10,9 @@
                 <input type="submit" value="Найти">
             </form>
         </div>
+        <nav>
+            <a href="{{ route('properties.create') }}">Создать характеристику продуктов</a>
+        </nav>
 
         @foreach ($properties as $property)
             <div class="item">

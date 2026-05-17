@@ -16,9 +16,6 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()) {
-            return to_route('login');
-        }
         if (Auth::user()->userRole->name != 'admin' && Auth::user()->userRole->name != 'universal') {
             return redirect('/');
         }

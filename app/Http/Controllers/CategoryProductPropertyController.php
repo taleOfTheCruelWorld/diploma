@@ -16,7 +16,7 @@ class CategoryProductPropertyController extends Controller
     public function index(Category $category)
     {
         $data['category_product_properties'] = $category->categoryProductProperties;
-    
+
         $data['category'] = $category;
 
         return view('content_manager.category_product_properties.index', $data);
@@ -29,7 +29,7 @@ class CategoryProductPropertyController extends Controller
     {
         $data['category'] = $category;
         $data['properties'] = Property::whereDoesntHave('categoryProductProperties', function ($query) use ($category) {
-            $query->where('id', '!=', $category->id);
+            $query->where('category_id', '=', $category->id);
         })->get();
 
         return view('content_manager.category_product_properties.create', $data);
@@ -91,7 +91,9 @@ class CategoryProductPropertyController extends Controller
     {
 
         $data['current_category_product_property'] = $categoryProductProperty;
-        $data['properties'] = Property::doesntHave('categoryProductProperties')->where('id', $category->id)->get()->prepend($categoryProductProperty->property);
+        $data['properties'] = Property::whereDoesntHave('categoryProductProperties', function ($query) use ($category) {
+            $query->where('category_id', '=', $category->id);
+        })->get()->prepend($categoryProductProperty->property);
         $data['category'] = $category;
 
         return view('content_manager.category_product_properties.edit', $data);
