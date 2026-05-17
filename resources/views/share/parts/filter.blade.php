@@ -1,7 +1,7 @@
 @use(App\Models\ProductProperty)
 <div class="filter">
     <h2 class="header">Фильтрация</h2> 
-    <form action="{{ route('search') }}" method="get" id="filter" class="filter_form">
+    <form action="" method="get" id="filter" class="filter_form">
         <input type="text" hidden name="q" @if(isset($q))value="{{ $q }}"@endif>
         <div class="option">
              <div>Цена</div>

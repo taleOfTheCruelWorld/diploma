@@ -27,60 +27,14 @@ class MainController extends Controller
         return view('share.catalog', $data);
     }
 
-    public function category(Category $category)
+    public function category(Request $request, Category $category)
     {
-        $data['css'] = ['/css/product_list.css'];
-        $data['products'] = $category->products;
-        $data['category'] = $category;
 
-        return view('share.category', $data);
-    }
-
-    public function product(Product $product)
-    {
-        $data['product'] = $product;
-        $data['css'] = ['/css/product.css', 'js/splide-4.1.3/dist/css/splide.min.css'];
-        $data['comment_count'] = $product->productComments->count();
-        if ($data['comment_count'] > 0) {
-            $data['mark'] = round($product->productComments->sum('mark') / $data['comment_count'], 1);
-        } else {
-            $data['mark'] = 0;
-        }
-        $data['product_comments'] = $product->productComments;
-
-        $data['product_properties'] = ProductProperty::join('properties', 'property_id', '=', 'properties.id')
-            ->where('product_id', '=', $product->id)
-            ->whereNotNull('value')
-            ->orderBy('product_property_group_id')
-            ->get();
-
-        return view('share.product', $data);
-    }
-
-    public function search(Request $request)
-    {
-        // dd($request->all());
-        if (strlen($request->q) == 0) {
-            return back();
-        }
-
-        $result = null;
-
-        $category = Category::whereLike('name', "%{$request->q}%")->first();
-        if ($category) {
-            $result = $category->products;
-        } else {
-            $product = Product::whereLike('name', $request->q)->first();
-            if ($product) {
-                $category = $product->category;
-                $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->get();
-            }
-        }
-
+        $result = $category->products;
         // Дальше страшная фильтрация
         if ($result) {
             if ($request->price_from == '' || $request->price_from > $request->price_to) {
-                $request->price_from = DB::select('select min(price + 0) as min from products where category_id = ?',[$category->id])[0]->min;
+                $request->price_from = DB::select('select min(price + 0) as min from products where category_id = ?', [$category->id])[0]->min;
             }
             $min = $request->price_from;
             if ($request->price_to == '' || $request->price_from > $request->price_to) {
@@ -138,12 +92,121 @@ class MainController extends Controller
                 }
             }
         }
-      
+
+        $data['category'] = $category;
+        $data['products'] = $result;
+        $data['css'] = ['css/product_list.css', 'css/products.css', 'css/filter.css', 'css/sort.css'];
+
+        return view('share.search', $data);
+    }
+
+    public function product(Product $product)
+    {
+        $data['product'] = $product;
+        $data['css'] = ['/css/product.css', 'js/splide-4.1.3/dist/css/splide.min.css'];
+        $data['comment_count'] = $product->productComments->count();
+        if ($data['comment_count'] > 0) {
+            $data['mark'] = round($product->productComments->sum('mark') / $data['comment_count'], 1);
+        } else {
+            $data['mark'] = 0;
+        }
+        $data['product_comments'] = $product->productComments;
+
+        $data['product_properties'] = ProductProperty::join('properties', 'property_id', '=', 'properties.id')
+            ->where('product_id', '=', $product->id)
+            ->whereNotNull('value')
+            ->orderBy('product_property_group_id')
+            ->get();
+
+        return view('share.product', $data);
+    }
+
+    public function search(Request $request)
+    {
+        // dd($request->all());
+        if (strlen($request->q) == 0) {
+            return back();
+        }
+
+        $result = null;
+
+        $category = Category::whereLike('name', "%{$request->q}%")->first();
+        if ($category) {
+            $result = $category->products;
+        } else {
+            $product = Product::whereLike('name', $request->q)->first();
+            if ($product) {
+                $category = $product->category;
+                $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->get();
+            }
+        }
+
+        // Дальше страшная фильтрация
+        if ($result) {
+            if ($request->price_from == '' || $request->price_from > $request->price_to) {
+                $request->price_from = DB::select('select min(price + 0) as min from products where category_id = ?', [$category->id])[0]->min;
+            }
+            $min = $request->price_from;
+            if ($request->price_to == '' || $request->price_from > $request->price_to) {
+                $request->price_to = DB::select('select max(price + 0) as max from products where category_id = ?', [$category->id])[0]->max;
+            }
+            $max = $request->price_to;
+            $data['price_from'] = $request->price_from;
+            $data['price_to'] = $request->price_to;
+            $count = $request->count;
+            $data['count'] = $count;
+            $result = $result->filter(function ($item) use ($count, $min, $max) {
+                if ($item->price + 0 >= $min + 0 && $item->price + 0 <= $max + 0) {
+                    if ($count) {
+                        if ($item->count > 0) {
+                            return $item;
+                        }
+                    } else {
+                        return $item;
+                    }
+                }
+            });
+
+            foreach ($request->all() as $filter => $value) {
+                $prop = Property::find($filter);
+                if ($prop) {
+                    if ($prop->type == 'integer') {
+                        if ($value[0] == '' || $value[0] > $value[1]) {
+                            $value[0] = DB::select('select min(value + 0) as min from product_properties where property_id = ?', [$prop->id])[0]->min;
+
+                        }
+                        if ($value[1] == '' || $value[0] > $value[1]) {
+                            $value[1] = DB::select('select max(value + 0) as max from product_properties where property_id = ?', [$prop->id])[0]->max;
+                        }
+                        $data['fr' . $filter] = $value;
+                        $result = $result->filter(function ($item) use ($filter, $value) {
+                            $propValue = $item->productProperties->where('property_id', '=', $filter)->first()->value;
+                            if ($propValue >= $value[0] && $propValue <= $value[1]) {
+                                return $item;
+                            }
+                        });
+                    }
+                    if ($prop->type == 'select') {
+                        $i = 0;
+                        $result = $result->filter(function ($item) use ($filter, $value, &$data, &$i) {
+                            $propValue = $item->productProperties->where('property_id', '=', $filter)->first()->value;
+                            foreach ($value as $val) {
+                                if ($propValue == $val) {
+                                    $data['fr' . $filter][$i] = true;
+                                    return $item;
+                                }
+                                $i++;
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
         $data['category'] = $category;
         $data['products'] = $result;
         $data['css'] = ['css/product_list.css', 'css/products.css', 'css/filter.css', 'css/sort.css'];
         $data['q'] = $request->q;
-        $data['rating'] = $request->rating;
 
         return view('share.search', $data);
     }
