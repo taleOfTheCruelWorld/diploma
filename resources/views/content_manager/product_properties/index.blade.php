@@ -5,6 +5,7 @@
     <div class="container">
         <h1>Характеристики продуктов</h1>
         <form action="{{ route('product-properties.update', ['product' => $product]) }}" method="post">
+            @csrf
             @php
                 $current_group = '';
             @endphp

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\CategoryProductProperty;
 use App\Models\ProductProperty;
-use App\Models\ProductPropertyGroup;
 use App\Models\Property;
 use Illuminate\Http\Request;
 
