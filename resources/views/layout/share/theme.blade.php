@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('/css/theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cookie_confirmation.css') }}">
     @if(isset($css))
         @foreach ($css as $one)
             <link rel="stylesheet" href="{{ asset($one) }}">
@@ -26,15 +27,18 @@
                 <img src="{{ asset('logo.svg') }}" alt="logo" class="logo">
             </a>
             <a href="{{ route('index') }}">Главная</a>
-            <a href="{{ route('catalog') }}">Каталог</a>
+            <!-- Тут будет каталог -->
             <form action="{{ route('search') }}" method="get" id="search">
                 <label for="">Искать</label>
                 <input type="text" name="q" @if(isset($q)) value="{{ $q }}" @endif>
             </form>
             @auth
-                <a href="{{ route('user.favorite') }}">Избранное (<span id="favorite-count">{{ Auth::user()->userFavoriteItems->count()}}</span>)</a>
-                <a href="{{ route('user.cart') }}">Корзина (<span id="cart-count">{{ Auth::user()->userCartItems->count()}}</span>)</a>
-                <a href="{{ route('user.orders') }}">История заказов (<span id="orders-count">{{ Auth::user()->userOrders->count()}}</span>)</a>
+                <a href="{{ route('user.favorite') }}">Избранное (<span
+                        id="favorite-count">{{ Auth::user()->userFavoriteItems->count()}}</span>)</a>
+                <a href="{{ route('user.cart') }}">Корзина (<span
+                        id="cart-count">{{ Auth::user()->userCartItems->count()}}</span>)</a>
+                <a href="{{ route('user.orders') }}">История заказов (<span
+                        id="orders-count">{{ Auth::user()->userOrders->count()}}</span>)</a>
                 <a href="{{ route('logout') }}">Выйти</a>
             @endauth
             @guest
@@ -83,6 +87,9 @@
         </div>
     </footer>
 
+    @include('share.parts.cookie_confirmation')
+
+    <script src="{{ asset('js/cookieConfirmation.js') }}"></script>
     <script src="{{ asset('js/category_list_slider.js') }}"></script>
     <script src="{{ asset('js/menu.js') }}"></script>
 

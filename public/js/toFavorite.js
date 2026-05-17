@@ -21,10 +21,10 @@ async function addToFavorite(url, csrf) {
             if (data.product == 'exists') {
                 incrementFavoriteCount();
             }
-            alert(data.text);
+            console.log(data.text);
         })
         .catch((error) => {
-            alert('Что-то пошло не так...');
+            console.log('Что-то пошло не так...');
         });
 
 }

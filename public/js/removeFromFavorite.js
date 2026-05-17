@@ -18,10 +18,10 @@ async function removeFromFavorite(url, csrf) {
     })
         .then(data => {
             decrementFavoriteCount();
-            alert(data.text);
+            console.log(data.text);
         })
         .catch((error) => {
-            alert('Что-то пошло не так...');
+            console.log('Что-то пошло не так...');
         });
 
 }

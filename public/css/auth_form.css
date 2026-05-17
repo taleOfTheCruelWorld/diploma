@@ -11,8 +11,8 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
-    min-width: 320px;
-    max-width: 500px;
+    min-width: 280px;
+    max-width: 400px;
     box-shadow: #424242;
     box-shadow: 0 0 4px var(--color2);
     padding: 30px;
@@ -95,7 +95,31 @@
     color: white;
 }
 
-.content{
+.auth_form .data .checkbox_div {
+    
+}
+
+.auth_form .data .checkbox_div label {
+    color: var(--color2);
+    font-size: 1rem;
+    text-align: justify;
+}
+
+.auth_form .data .checkbox_div .checkbox {
+    height: 16px;
+    width: 16px;
+}
+
+.auth_form .data .disabled{
+    background-color: gray;
+    cursor:default;
+}
+
+.auth_form .data .disabled:hover{
+    background-color: gray;
+}
+
+.content {
     box-shadow: none !important;
     background: none !important;
 }

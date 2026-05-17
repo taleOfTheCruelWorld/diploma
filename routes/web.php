@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 // Общие маршруты
 Route::get('/', [MainController::class, 'index'])->name('index');
-Route::get('/catalog', [MainController::class, 'catalog'])->name('catalog');
+// Route::get('/catalog', [MainController::class, 'catalog'])->name('catalog');
 Route::get('/search', [MainController::class, 'search'])->name('search');
 Route::get('/category/{category}', [MainController::class, 'category'])->name('category');
 Route::get('/product/{product}', [MainController::class, 'product'])->name('product');

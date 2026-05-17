@@ -19,10 +19,12 @@
             </div>
             <div class="cart-actions">
                 <div class="price">{{ $product->price }} Руб.</div>
-                <form action="{{ route('user.add-to-favorite', ['product' => $product]) }}" method="post">
+                <form action="{{ route('user.add-to-favorite', ['product' => $product]) }}" method="post" class="to-favorite_form">
+                    @csrf
                     <button class="add-to-favorite">В избранное</button>
                 </form>
-                <form action="{{ route('user.add-to-cart', ['product' => $product]) }}" method="post">
+                <form action="{{ route('user.add-to-cart', ['product' => $product]) }}" method="post" class="to-cart_form">
+                    @csrf
                     <button class="add-to-cart">В корзину</button>
                 </form>
             </div>

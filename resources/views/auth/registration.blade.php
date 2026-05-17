@@ -23,10 +23,16 @@
                 <div class="img"></div>
                 <input type="text" name="phone" placeholder="Телефон" value="{{ old('phone') }}">
             </div>
-            <input type="submit" value="Зарегистрироваться">
+            <input type="submit" value="Зарегистрироваться" class="submit">
+            <div class="checkbox_div">
+                <label for="">Я согласен с <a href="#">Политикой обработки персональных данных</a> <input type="checkbox"
+                        name="policy_confirmation" id="policy_confirmation" class="checkbox"></label>
+
+            </div>
             @foreach ($errors->all() as $error)
                 <p style="color:red;">{{ $error }}</p>
             @endforeach
         </div>
     </form>
+    <script src="{{ asset('js/policyConfirmation.js') }}"></script>
 @endsection

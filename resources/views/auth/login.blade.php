@@ -15,7 +15,7 @@
                 <div class="img"></div>
                 <input type="password" name="password" placeholder="Пароль" value="{{ old('password') }}">
             </div>
-            <input type="submit" value="Войти">
+            <input type="submit" value="Войти" class="submit">
             @foreach ($errors->all() as $error)
                 <p style="color:red;">{{ $error }}</p>
             @endforeach

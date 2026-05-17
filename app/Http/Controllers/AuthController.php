@@ -48,6 +48,9 @@ class AuthController extends Controller
     public function register(Request $r)
     {
 
+        if (!$r->policy_confirmation) {
+            return to_route('register');
+        }
         $messages = [
             'email.required' => 'Поле email обязательно к заполнению',
             'email.email' => 'Неизвестный формат электронной почты',
