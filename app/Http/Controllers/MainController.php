@@ -79,12 +79,12 @@ class MainController extends Controller
 
         // Дальше страшная фильтрация
         if ($result) {
-            if ($request->price_from == '') {
-                $request->price_from = DB::select('select min(price + 0) as min from products')[0]->min;
+            if ($request->price_from == '' || $request->price_from > $request->price_to) {
+                $request->price_from = DB::select('select min(price + 0) as min from products where category_id = ?',[$category->id])[0]->min;
             }
             $min = $request->price_from;
-            if ($request->price_to == '') {
-                $request->price_to = DB::select('select max(price + 0) as max from products')[0]->max;
+            if ($request->price_to == '' || $request->price_from > $request->price_to) {
+                $request->price_to = DB::select('select max(price + 0) as max from products where category_id = ?', [$category->id])[0]->max;
             }
             $max = $request->price_to;
             $data['price_from'] = $request->price_from;
@@ -92,7 +92,7 @@ class MainController extends Controller
             $count = $request->count;
             $data['count'] = $count;
             $result = $result->filter(function ($item) use ($count, $min, $max) {
-                if ($item->price >= $min && $item->price <= $max) {
+                if ($item->price + 0 >= $min + 0 && $item->price + 0 <= $max + 0) {
                     if ($count) {
                         if ($item->count > 0) {
                             return $item;
@@ -107,13 +107,14 @@ class MainController extends Controller
                 $prop = Property::find($filter);
                 if ($prop) {
                     if ($prop->type == 'integer') {
+                        if ($value[0] == '' || $value[0] > $value[1]) {
+                            $value[0] = DB::select('select min(value + 0) as min from product_properties where property_id = ?', [$prop->id])[0]->min;
+
+                        }
+                        if ($value[1] == '' || $value[0] > $value[1]) {
+                            $value[1] = DB::select('select max(value + 0) as max from product_properties where property_id = ?', [$prop->id])[0]->max;
+                        }
                         $data['fr' . $filter] = $value;
-                        if ($value[0] == '') {
-                            $value[0] = ProductProperty::where('property_id', '=', $filter)->min('value');
-                        }
-                        if ($value[1] == '') {
-                            $value[1] = ProductProperty::where('property_id', '=', $filter)->max('value');
-                        }
                         $result = $result->filter(function ($item) use ($filter, $value) {
                             $propValue = $item->productProperties->where('property_id', '=', $filter)->first()->value;
                             if ($propValue >= $value[0] && $propValue <= $value[1]) {
@@ -137,6 +138,7 @@ class MainController extends Controller
                 }
             }
         }
+      
         $data['category'] = $category;
         $data['products'] = $result;
         $data['css'] = ['css/product_list.css', 'css/products.css', 'css/filter.css', 'css/sort.css'];

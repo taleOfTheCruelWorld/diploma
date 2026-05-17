@@ -23,8 +23,8 @@
                     @endif
                     @if($property->property->type == 'select')
                         <select name="{{ $property->property_id }}">
-                            @foreach (ProductProperty::where('property_id', '=', $property->property_id)->whereNotNull('value')->distinct()->get() as $prop)
-                                <option value="{{ $prop->value }}">{{ $prop->value }}</option>
+                            @foreach (ProductProperty::where('property_id', '=', $property->property_id)->whereNotNull('value')->distinct()->pluck('value') as $prop)
+                                <option value="{{ $prop}}">{{ $prop }}</option>
                             @endforeach
                         </select>
                         <button class="create-new-value_btn">Свое значение</button>

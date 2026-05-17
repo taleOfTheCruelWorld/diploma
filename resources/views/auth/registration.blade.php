@@ -26,7 +26,7 @@
             <input type="submit" value="Зарегистрироваться" class="submit">
             <div class="checkbox_div">
                 <label for="">Я согласен с <a href="#">Политикой обработки персональных данных</a> <input type="checkbox"
-                        name="policy_confirmation" id="policy_confirmation" class="checkbox"></label>
+                        name="policy_confirmation" id="policy_confirmation" class="checkbox" autocomplete="off"></label>
 
             </div>
             @foreach ($errors->all() as $error)

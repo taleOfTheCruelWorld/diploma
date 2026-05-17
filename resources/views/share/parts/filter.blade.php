@@ -48,10 +48,11 @@
                 $i = 0;
             @endphp
             <div class="options" style="height:0;">
-            @foreach(ProductProperty::where('property_id', '=', $property->property->id)->distinct()->get() as $value)
+                
+            @foreach(ProductProperty::where('property_id', '=', $property->property->id)->distinct()->pluck('value') as $value)
                 <div class="input_div">
-                    <label for="">{{$value->value}}</label>
-                    <input type="checkbox" name="{{ $property->property_id}}[]" id="" value="{{ $value->value }}" @if(isset($$prop[$i])) checked="true" @endif>
+                    <label for="">{{$value}}</label>
+                    <input type="checkbox" name="{{ $property->property_id}}[]" id="" value="{{ $value }}" @if(isset($$prop[$i])) checked="true" @endif>
                     @php $i++; @endphp
                 </div>
             @endforeach

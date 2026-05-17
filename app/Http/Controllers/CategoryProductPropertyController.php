@@ -29,7 +29,9 @@ class CategoryProductPropertyController extends Controller
     public function create(Category $category)
     {
         $data['category'] = $category;
-        $data['properties'] = Property::all();
+        $data['properties'] = Property::whereDoesntHave('categoryProductProperties', function ($query) use ($category) {
+            $query->where('id', '!=', $category->id);
+        })->get();
 
         return view('content_manager.category_product_properties.create', $data);
     }
@@ -90,8 +92,7 @@ class CategoryProductPropertyController extends Controller
     {
 
         $data['current_category_product_property'] = $categoryProductProperty;
-        $data['product_property_groups'] = ProductPropertyGroup::all();
-        $data['properties'] = Property::all();
+        $data['properties'] = Property::doesntHave('categoryProductProperties')->where('id', $category->id)->get()->prepend($categoryProductProperty->property);
         $data['category'] = $category;
 
         return view('content_manager.category_product_properties.edit', $data);
