@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryProductPropertyController;
 use App\Http\Controllers\ContentManagerController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\InitController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -20,6 +21,10 @@ use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsAuthorized;
 use App\Http\Middleware\EnsureUserIsNotAuthorized;
 use Illuminate\Support\Facades\Route;
+
+
+// !!! НЕ ТРОГАТЬ !!!
+//Route::get('/db-init',[InitController::class, 'DBInit'])->name('db-init');
 
 
 // Общие маршруты
