@@ -5,14 +5,14 @@
 }
 
 @font-face {
-    font-family: 'Sans-serif';
-    src: url('../fonts/microsoftsansserif.ttf');
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto/static/Roboto-Regular.ttf');
 }
 
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Sans-serif';
+    font-family: 'Roboto';
 }
 
 body {
