@@ -1,4 +1,12 @@
-.search{
-    position:relative;
-    height: 70px;
+.search {
+    height: fit-content;
+    padding: 10px;
+    width: fit-content;
+
 }
+
+.search form {
+    display: flex;
+    flex-flow: row wrap;
+}
+

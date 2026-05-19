@@ -1,6 +1,7 @@
 @extends('layout.content_manager.theme')
 @section('content')
     <div class="container">
+         <a href="{{ route('categories.index') }}">Назад</a>
         <h1>ID: {{ $category->id }}</h1>
         <div>Название: {{ $category->name }}</div>
         <div>Описание: {{ $category->description }}</div>

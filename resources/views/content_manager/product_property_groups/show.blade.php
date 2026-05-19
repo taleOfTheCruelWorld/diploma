@@ -1,6 +1,7 @@
 @extends('layout.content_manager.theme')
 @section('content')
     <div class="container">
+         <a href="{{ route('product-property-groups.index') }}">Назад</a>
         <h1>ID: {{ $product_property_group->id }}</h1>
         <h1>Название: {{ $product_property_group->name }}</h1>
         <div class="actions">

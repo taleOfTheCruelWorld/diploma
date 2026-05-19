@@ -1,6 +1,7 @@
 @extends('layout.content_manager.theme')
 @section('content')
     <div class="container">
+        <a href="{{ route('product-media-files.index', ['product'=>$product]) }}">Назад</a>
         <h1>ID: {{ $product_media_file->id }}</h1>
         <h1>Путь: {{ $product_media_file->path }}</h1>
         <img src="{{ asset('storage/' . $product_media_file->path) }}" alt="img" style="width:100px">

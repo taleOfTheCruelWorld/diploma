@@ -1,6 +1,7 @@
 @extends('layout.content_manager.theme')
 @section('content')
     <div class="container">
+        <a href="{{ route('properties.index') }}">Назад</a>
         <div class="id">ID: {{ $property->id }}</div>
         <div class="name">Название: {{ $property->name }}</div>
         <div class="name">Единица измерения: {{ $property->units }}</div>

@@ -80,6 +80,7 @@ class CategoryProductPropertyController extends Controller
     public function show(Category $category, CategoryProductProperty $categoryProductProperty)
     {
         $data['category_product_property'] = $categoryProductProperty;
+        $data['category'] = $category;
 
         return view('content_manager.category_product_properties.show', $data);
     }

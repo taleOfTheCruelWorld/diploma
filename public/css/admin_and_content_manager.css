@@ -18,12 +18,39 @@
 
 .container .item {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
+    justify-content: space-between;
     border: 1px solid lightgray;
     padding: 10px;
     gap: 10px;
 }
 
+.container .item .data {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
+.container .item .actions {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+}
+
+.container .item .actions a{
+    display: block;
+    background-color: var(--color1);
+    color: white;
+    text-align: center;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+.container .item .actions a:hover{
+    background-color: var(--color2);
+}
 .container .actions form {
     display: flex;
     flex-flow: row wrap;
