@@ -134,6 +134,7 @@ class ProductController extends Controller
             ],
             $messages
         );
+        $currentProductCategory = $product->category->id;
         $product->category_id = $request->category;
         $product->name = $request->name;
         $product->price = $request->price;
@@ -142,6 +143,22 @@ class ProductController extends Controller
         $product->slug = $product->id . '-' . Str::slug($request->name, '-', 'ru');
 
         $product->save();
+
+        if ($currentProductCategory != $request->category) {
+            foreach ($product->productProperties as $property) {
+                $property->delete();
+            }
+
+            $properties = Category::where('id', $request->category)->first()->categoryProductProperties;
+            foreach ($properties as $property) {
+                $productProperty = new ProductProperty();
+
+                $productProperty->product_id = $product->id;
+                $productProperty->property_id = $property->property_id;
+
+                $productProperty->save();
+            }
+        }
 
         return to_route('products.show', ['product' => $product]);
     }
