@@ -55,6 +55,7 @@ class ProductMediaFileController extends Controller
         $path = $request->media->storeAs('product_media_files', $fileName, 'public');
         $media->path = $path;
 
+
         $media->save();
 
         return to_route('product-media-files.index', ['product' => $product]);
@@ -107,6 +108,8 @@ class ProductMediaFileController extends Controller
             $path = $request->media->storeAs('product_medias', $fileName, 'public');
             $productMediaFile->path = $path;
         }
+
+        
 
 
         $productMediaFile->save();

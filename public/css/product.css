@@ -20,7 +20,7 @@
     flex-flow: column wrap;
     gap: 10px;
     padding: 10px;
-    box-shadow: 1px 1px 4px var(--color2);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .3);
     border-radius: 10px;
 }
 
@@ -94,25 +94,21 @@
 .product-data {
     display: flex;
     flex-flow: column nowrap;
-    box-shadow: 1px 1px 4px var(--color2);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .3);
     border-radius: 10px;
     padding: 10px;
     gap: 20px;
 }
 
-.product-data .product-properties{
+.product-data .product-properties {
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
 }
 
-.product-data .product-properties .group{
-    
-}
+.product-data .product-properties .group {}
 
-.product-data .product-properties .group .property{
-
-}
+.product-data .product-properties .group .property {}
 
 .product-extend-data {
     display: flex;
@@ -137,7 +133,7 @@
 .comment_list .comment {
     display: flex;
     flex-flow: column nowrap;
-    box-shadow: 1px 1px 4px var(--color2);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .3);
     border-radius: 10px;
     padding: 10px;
 }
@@ -163,7 +159,7 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
-    box-shadow: 1px 1px 4px var(--color2);
+    box-shadow: 1px 1px 4pxrgba(0, 0, 0, .3);
     border-radius: 10px;
     padding: 10px;
 }

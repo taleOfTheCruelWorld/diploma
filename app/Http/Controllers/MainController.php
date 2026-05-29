@@ -16,6 +16,7 @@ class MainController extends Controller
 {
     public function index()
     {
+    
         return view('share.index');
     }
 
@@ -123,7 +124,6 @@ class MainController extends Controller
 
     public function search(Request $request)
     {
-        // dd($request->all());
         if (strlen($request->q) == 0) {
             return back();
         }
@@ -134,7 +134,7 @@ class MainController extends Controller
         if ($category) {
             $result = $category->products;
         } else {
-            $product = Product::whereLike('name', $request->q)->first();
+            $product = Product::whereLike('name', "%{$request->q}%")->first();
             if ($product) {
                 $category = $product->category;
                 $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->get();
@@ -144,11 +144,11 @@ class MainController extends Controller
         // Дальше страшная фильтрация
         if ($result) {
             if ($request->price_from == '' || $request->price_from > $request->price_to) {
-                $request->price_from = DB::select('select min(price + 0) as min from products where category_id = ?', [$category->id])[0]->min;
+                $request->price_from = DB::select('select min(price + 0.0) as min from products where category_id = ?', [$category->id])[0]->min;
             }
             $min = $request->price_from;
             if ($request->price_to == '' || $request->price_from > $request->price_to) {
-                $request->price_to = DB::select('select max(price + 0) as max from products where category_id = ?', [$category->id])[0]->max;
+                $request->price_to = DB::select('select max(price + 0.0) as max from products where category_id = ?', [$category->id])[0]->max;
             }
             $max = $request->price_to;
             $data['price_from'] = $request->price_from;
@@ -172,11 +172,11 @@ class MainController extends Controller
                 if ($prop) {
                     if ($prop->type == 'integer') {
                         if ($value[0] == '' || $value[0] > $value[1]) {
-                            $value[0] = DB::select('select min(value + 0) as min from product_properties where property_id = ?', [$prop->id])[0]->min;
+                            $value[0] = DB::select('select min(value + 0.0) as min from product_properties where property_id = ?', [$prop->id])[0]->min;
 
                         }
                         if ($value[1] == '' || $value[0] > $value[1]) {
-                            $value[1] = DB::select('select max(value + 0) as max from product_properties where property_id = ?', [$prop->id])[0]->max;
+                            $value[1] = DB::select('select max(value + 0.0) as max from product_properties where property_id = ?', [$prop->id])[0]->max;
                         }
                         $data['fr' . $filter] = $value;
                         $result = $result->filter(function ($item) use ($filter, $value) {
