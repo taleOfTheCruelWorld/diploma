@@ -1,6 +1,7 @@
 .meta {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
+    justify-content: space-between;
     gap: 10px;
 }
 

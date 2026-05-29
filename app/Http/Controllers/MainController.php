@@ -16,7 +16,7 @@ class MainController extends Controller
 {
     public function index()
     {
-    
+
         return view('share.index');
     }
 
@@ -30,8 +30,24 @@ class MainController extends Controller
 
     public function category(Request $request, Category $category)
     {
+        $data['sort'] = $request->sort;
+        if ($request->sort) {
+            if ($request->sort == 'none') {
+                $result = $category->products;
+            }
+            if ($request->sort == 'price_desc') {
+                $result = $category->products->sortByDesc('price');
+            }
 
-        $result = $category->products;
+            if ($request->sort == 'price_asc') {
+                $result = $category->products->sortBy('price');
+            }
+        } else {
+            $result = $category->products;
+        }
+
+
+
         // Дальше страшная фильтрация
         if ($result) {
             if ($request->price_from == '' || $request->price_from > $request->price_to) {
@@ -93,7 +109,6 @@ class MainController extends Controller
                 }
             }
         }
-
         $data['category'] = $category;
         $data['products'] = $result;
         $data['css'] = ['css/product_list.css', 'css/products.css', 'css/filter.css', 'css/sort.css'];
@@ -127,17 +142,45 @@ class MainController extends Controller
         if (strlen($request->q) == 0) {
             return back();
         }
-
+        $data['sort'] = $request->sort;
         $result = null;
 
         $category = Category::whereLike('name', "%{$request->q}%")->first();
         if ($category) {
-            $result = $category->products;
+            if ($request->sort) {
+                if ($request->sort == 'none') {
+                    $result = $category->products;
+                }
+                if ($request->sort == 'price_desc') {
+                    $result = $category->products->sortByDesc('price');
+                }
+
+                if ($request->sort == 'price_asc') {
+                    $result = $category->products->sortBy('price');
+                }
+            } else {
+                $result = $category->products;
+            }
+
         } else {
             $product = Product::whereLike('name', "%{$request->q}%")->first();
             if ($product) {
                 $category = $product->category;
-                $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->get();
+                if ($request->sort) {
+                    if ($request->sort == 'none') {
+                        $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->get();
+                    }
+                    if ($request->sort == 'price_desc') {
+                        $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->orderByRaw('CAST(price as float) DESC')->get();
+                    }
+
+                    if ($request->sort == 'price_asc') {
+                        $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->orderByRaw('CAST(price as float) ASC')->get();
+                    }
+                } else {
+                    $result = Product::where('category_id', '=', $category->id)->where('name', 'like', "%{$request->q}%")->get();
+                }
+
             }
         }
 
@@ -202,7 +245,6 @@ class MainController extends Controller
                 }
             }
         }
-
         $data['category'] = $category;
         $data['products'] = $result;
         $data['css'] = ['css/product_list.css', 'css/products.css', 'css/filter.css', 'css/sort.css'];

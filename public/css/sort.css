@@ -1,0 +1,11 @@
+.sorting{
+
+}
+
+.sorting select{
+    background-color: #fff;
+    color: black;
+    font-size: 1rem;
+    width: fit-content;
+    border: none;
+}
