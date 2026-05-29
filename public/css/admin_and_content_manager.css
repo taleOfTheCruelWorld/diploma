@@ -16,6 +16,19 @@
     color: var(--color1);
 }
 
+.container form {
+    width: 400px;
+}
+
+.container form select {
+    width: 400px;
+}
+
+.container form select option {
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
 .container .item {
     display: flex;
     flex-flow: row wrap;
@@ -39,7 +52,7 @@
     gap: 10px;
 }
 
-.container .item .actions a{
+.container .item .actions a {
     display: block;
     background-color: var(--color1);
     color: white;
@@ -50,9 +63,10 @@
     transition: .2s;
 }
 
-.container .item .actions a:hover{
+.container .item .actions a:hover {
     background-color: var(--color2);
 }
+
 .container .actions form {
     display: flex;
     flex-flow: row wrap;
