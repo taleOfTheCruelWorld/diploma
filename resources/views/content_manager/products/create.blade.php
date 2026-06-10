@@ -21,7 +21,7 @@
             </div>
             <div class="input_div">
                 <label for="">Описание</label>
-                <textarea name="description">
+                <textarea name="description"></textarea>
             </div>
             <div class="input_div">
                 <label for="">Количество</label>
