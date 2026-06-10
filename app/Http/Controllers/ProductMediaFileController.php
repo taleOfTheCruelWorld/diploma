@@ -37,13 +37,13 @@ class ProductMediaFileController extends Controller
     {
         $messages = [
             'media.required' => 'Поле изображение обязательно к заполнению',
-            'media.mimes' => 'Формат изображения: jpg, png',
+            'media.mimes' => 'Формат изображения: jpg, png, webp',
         ];
 
 
         $request->validate(
             [
-                'media' => 'required|mimes:jpg,png',
+                'media' => 'required|mimes:jpg,png,webp',
             ],
             $messages
         );
@@ -90,13 +90,13 @@ class ProductMediaFileController extends Controller
     {
         $messages = [
             'media.required' => 'Поле изображение обязательно к заполнению',
-            'media.mimes' => 'Формат изображения: jpg, png',
+            'media.mimes' => 'Формат изображения: jpg, png, webp',
         ];
 
 
         $request->validate(
             [
-                'media' => 'required|mimes:jpg,png',
+                'media' => 'required|mimes:jpg,png,webp',
             ],
             $messages
         );
