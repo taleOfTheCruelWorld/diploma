@@ -18,7 +18,7 @@
             </div>
             <div class="input_div">
                 <label for="">Описание</label>
-                <input type="text" name="description">
+                <textarea name="description" id=""></textarea>
             </div>
             <input type="submit" value="Создать">
             @foreach ($errors->all() as $error)

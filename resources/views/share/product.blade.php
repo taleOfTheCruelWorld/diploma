@@ -69,8 +69,8 @@
                                     @endphp
                                     @break
                                 @endif
-                                <div class="property">{{ $property->property->name }} ({{ $property->property->units }}):
-                                    {{ $property->value }}</div>
+                                <p class="property">{{ $property->property->name }} ({{ $property->property->units }}):
+                                    {{ $property->value }}&shy;</p>
                             @endfor
                         </div>
                     @endfor

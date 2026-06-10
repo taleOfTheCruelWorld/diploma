@@ -15,14 +15,19 @@
                 <div class="products">
                     @foreach ($order->userOrderItems as $item)
                         <div class="product">
-                            @if ($item->product->productMediaFiles->first())
-                                <div class="image">
-                                    <img src="{{ asset('storage/' . $item->product->productMediafiles->first()->path) }}" alt="image">
-                                </div>
+                            @if($item->product)
+                                @if ($item->product->productMediaFiles->first())
+                                    <div class="image">
+                                        <img src="{{ asset('storage/' . $item->product->productMediafiles->first()->path) }}" alt="image">
+                                    </div>
+                                @endif
+                                <a href="{{ route('product', ['product' => $item->product]) }}">{{ $item->product->name }}</a>
+                                <p>Цена: {{ $item->price }} Руб.</p>
+                                <p>Количество: {{ $item->count }}</p>
+                            @else
+                                Не удалось получить информацию о продукте
                             @endif
-                            <a href="{{ route('product', ['product' => $item->product]) }}">{{ $item->product->name }}</a>
-                            <p>Цена: {{ $item->price }} Руб.</p>
-                            <p>Количество: {{ $item->count }}</p>
+
                         </div>
                     @endforeach
                 </div>

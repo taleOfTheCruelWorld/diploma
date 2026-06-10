@@ -28,6 +28,9 @@
     width: 340px;
     height: 255px;
 }
+.product .media img{
+  width: 100%;
+}
 
 .product .actions .cart-actions {
     display: flex;
@@ -106,9 +109,14 @@
     gap: 10px;
 }
 
-.product-data .product-properties .group {}
+.product-data .product-properties .group {
+   
+}
 
-.product-data .product-properties .group .property {}
+.product-data .product-properties .group .property {
+overflow-wrap: anywhere;
+
+}
 
 .product-extend-data {
     display: flex;

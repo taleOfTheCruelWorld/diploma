@@ -19,7 +19,7 @@
                 </div>
                 <div class="actions">
                     <a href="{{ route('categories.edit', ['category' => $category]) }}">Изменить</a>
-                    <a href="{{ route('category-product-properties.index', ['category' => $category]) }}">Свойства продуктов
+                    <a href="{{ route('category-product-properties.index', ['category' => $category]) }}">Характеристики продуктов
                         <a href="{{ route('categories.show', ['category' => $category]) }}">Подробнее</a>
                 </div>
             </div>

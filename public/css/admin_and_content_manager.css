@@ -17,7 +17,7 @@
 }
 
 .container form {
-    width: 400px;
+    width: 380px;
 }
 
 .container form select {
@@ -99,6 +99,7 @@
     margin: 0 auto;
     width: fit-content;
     height: fit-content;
+    
 }
 
 .container form .input_div {
@@ -113,6 +114,7 @@
     font-size: 1.25rem;
     color: var(--color2);
     padding: 4px;
+    width: 100%;
 }
 
 .container form .input_div input {

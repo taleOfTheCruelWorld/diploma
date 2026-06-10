@@ -21,8 +21,8 @@
                 </div>
                 <div class="actions">
                     <a href="{{ route('products.edit', ['product' => $product]) }}">Изменить</a>
-                    <a href="{{ route('product-properties.index', ['product' => $product]) }}">Свойства этого продукта</a>
-                    <a href="{{ route('product-media-files.index', ['product' => $product]) }}">Медиа-файлы этого продукта</a>
+                    <a href="{{ route('product-properties.index', ['product' => $product]) }}">Характеристики</a>
+                    <a href="{{ route('product-media-files.index', ['product' => $product]) }}">Медиа-файлы</a>
                     <a href="{{ route('products.show', ['product' => $product]) }}">Подробнее</a>
                 </div>
             </div>

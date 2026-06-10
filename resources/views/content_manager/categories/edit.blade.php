@@ -21,7 +21,7 @@
             </div>
             <div class="input_div">
                 <label for="">Описание</label>
-                <input type="text" name="description" value="{{ $current_category->description }}">
+                <textarea name="description" value="{{ $current_category->description }}">
             </div>
             <input type="submit" value="Обновить">
             @foreach ($errors->all() as $error)
