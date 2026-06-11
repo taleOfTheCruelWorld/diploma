@@ -3,7 +3,7 @@
 @extends('layout.content_manager.theme')
 @section('content')
     <div class="container">
-        <h1>Характеристики продуктов</h1>
+        <h1>Характеристики продукта {{ $product->name }}</h1>
         <form action="{{ route('product-properties.update', ['product' => $product]) }}" method="post">
             @csrf
             @php
