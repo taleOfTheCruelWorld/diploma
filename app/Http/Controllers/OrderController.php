@@ -85,7 +85,7 @@ class OrderController extends Controller
 
         $request->validate(
             [
-                'status' => 'required}exists:user_order_statuses,id',
+                'status' => 'required|exists:user_order_statuses,id',
             ],
             $messages
         );
