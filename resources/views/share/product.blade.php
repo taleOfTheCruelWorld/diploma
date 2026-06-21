@@ -69,7 +69,7 @@
                                     @endphp
                                     @break
                                 @endif
-                                <p class="property">{{ $property->property->name }} ({{ $property->property->units }}):
+                                <p class="property">{{ $property->property->name }} @if($property->property->units != '')({{ $property->property->units }})@endif:
                                     {{ $property->value }}&shy;</p>
                             @endfor
                         </div>

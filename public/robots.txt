@@ -1,7 +1,6 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /crud/
+Disallow: /*?*
+
 Allow: /
-
-
-Sitemap: http://185.236.26.220/sitemap.xml

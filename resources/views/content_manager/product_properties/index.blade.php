@@ -20,7 +20,7 @@
                 <div class="input_div">
                     <label for="">{{ $property->property->name . " ({$property->property->units})"}}</label>
                     @if($property->property->type == 'integer')
-                        <input type="number" value="{{ $property->value }}" name="{{ $property->property_id }}">
+                        <input type="text" value="{{ $property->value }}" name="{{ $property->property_id }}">
                     @endif
                     @if($property->property->type == 'select')
                         <select name="{{ $property->property_id }}">
