@@ -6,6 +6,11 @@ use App\Models\Product;
 use App\Models\ProductMediaFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Encoders\WebpEncoder;
+use Intervention\Image\FileExtension;
+use Intervention\Image\Format;
+use Intervention\Image\Laravel\Facades\Image;
+use Intervention\Image\MediaType;
 
 class ProductMediaFileController extends Controller
 {
@@ -52,9 +57,16 @@ class ProductMediaFileController extends Controller
         $media->product_id = $product->id;
 
         $fileName = time() . $request->media->getClientOriginalName();
-        $path = $request->media->storeAs('product_media_files', $fileName, 'public');
+        $path = 'product_media_files/' . $fileName;
         $media->path = $path;
 
+
+        $image = Image::decode($request->file('media'));
+
+        $image->scale(width: 800);
+        $image->encodeUsingFileExtension(FileExtension::WEBP, quality: 90);
+
+        $image->save(storage_path('app/public/' . $path));
 
         $media->save();
 
@@ -105,11 +117,19 @@ class ProductMediaFileController extends Controller
         if ($request->media) {
             Storage::disk('public')->delete($productMediaFile->path);
             $fileName = time() . $request->media->getClientOriginalName();
-            $path = $request->media->storeAs('product_medias', $fileName, 'public');
+            $path = 'product_media_files/' . $fileName;
             $productMediaFile->path = $path;
+
+
+            $image = Image::decode($request->file('media'));
+
+            $image->scale(width: 800);
+            $image->encodeUsingFileExtension(FileExtension::WEBP, quality: 90);
+
+            $image->save(storage_path('app/public/' . $path));
         }
 
-        
+
 
 
         $productMediaFile->save();
@@ -131,7 +151,7 @@ class ProductMediaFileController extends Controller
     public function search(Request $request, Product $product)
     {
         $result = ProductMediaFile::where('id', '=', $request->q)->get();
-        
+
         $data['product_media_files'] = $result;
         $data['q'] = $request->q;
         $data['product'] = $product;
