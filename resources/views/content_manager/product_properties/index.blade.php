@@ -25,7 +25,7 @@
                     @if($property->property->type == 'select')
                         <select name="{{ $property->property_id }}">
                             @foreach (ProductProperty::where('property_id', '=', $property->property_id)->whereNotNull('value')->distinct()->pluck('value') as $prop)
-                                <option title="{{ $prop }}" value="{{ $prop}}">{{ $prop }}</option>
+                                <option title="{{ $prop }}" value="{{ $prop}}" @selected($property->value == $prop)>{{ $prop }}</option>
                             @endforeach
                         </select>
                         <button class="create-new-value_btn">Свое значение</button>
