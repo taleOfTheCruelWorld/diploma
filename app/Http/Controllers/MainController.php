@@ -88,7 +88,7 @@ class MainController extends Controller
                         $data['fr' . $filter] = $value;
                         $result = $result->filter(function ($item) use ($filter, $value) {
                             $propValue = $item->productProperties->where('property_id', '=', $filter)->first()->value;
-                            if ($propValue >= $value[0] && $propValue <= $value[1]) {
+                            if ($propValue + 0.0 >= $value[0] && $propValue + 0.0 <= $value[1]) {
                                 return $item;
                             }
                         });
@@ -224,7 +224,7 @@ class MainController extends Controller
                         $data['fr' . $filter] = $value;
                         $result = $result->filter(function ($item) use ($filter, $value) {
                             $propValue = $item->productProperties->where('property_id', '=', $filter)->first()->value;
-                            if ($propValue >= $value[0] && $propValue <= $value[1]) {
+                            if ($propValue + 0.0 >= $value[0] && $propValue + 0.0 <= $value[1]) {
                                 return $item;
                             }
                         });
@@ -235,9 +235,9 @@ class MainController extends Controller
                             $propValue = $item->productProperties->where('property_id', '=', $filter)->first()->value;
                             foreach ($value as $val) {
                                 if ($propValue == $val) {
-                                    $data['fr' . $filter][$i] = true;
                                     return $item;
                                 }
+                                $data['fr' . $filter][$i] = true;
                                 $i++;
                             }
                         });

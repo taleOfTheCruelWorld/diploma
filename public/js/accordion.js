@@ -1,5 +1,5 @@
 const accordions = document.querySelectorAll('.accordion .data');
-console.log(accordions);
+
 
 function acopen(el) {
     const options = el.parentElement.querySelector('.options');

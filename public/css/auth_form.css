@@ -13,8 +13,7 @@
     gap: 10px;
     min-width: 280px;
     max-width: 400px;
-    box-shadow: #424242;
-    box-shadow: 0 0 4px var(--color2);
+    box-shadow: 0 0 4px #424242;
     padding: 30px;
     border-radius: 10px;
 }

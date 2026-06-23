@@ -7,11 +7,11 @@
              <div>Цена</div>
             <div class="suboption">
                 <label for="">от</label>
-                <input type="number" name="price_from" @if(isset($price_from))value="{{$price_from}}"@endif>
+                <input type="text" name="price_from" @if(isset($price_from))value="{{$price_from}}"@endif>
             </div>
             <div class="suboption">
                 <label for="">до</label>
-                <input type="number" name="price_to" @if(isset($price_to))value="{{$price_to}}"@endif>
+                <input type="text" name="price_to" @if(isset($price_to))value="{{$price_to}}"@endif>
             </div>
         </div>
         <div class="select">
@@ -30,11 +30,11 @@
             <div>{{ $property->property->name}} ({{ $property->property->units }})</div>
             <div class="suboption">
                 <label for="">от</label>
-                <input type="number" name="{{ $property->property_id }}[]" @if(isset($$prop)) value="{{ $$prop[0] }}" @endif>
+                <input type="text" name="{{ $property->property_id }}[]" @if(isset($$prop)) value="{{ $$prop[0] }}" @endif>
             </div>
             <div class="suboption">
                 <label for="">до</label>
-                <input type="number" name="{{ $property->property_id }}[]" @if(isset($$prop)) value="{{ $$prop[1] }}" @endif>
+                <input type="text" name="{{ $property->property_id }}[]" @if(isset($$prop)) value="{{ $$prop[1] }}" @endif>
             </div>
         </div>
         @endif

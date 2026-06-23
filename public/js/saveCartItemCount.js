@@ -19,6 +19,7 @@ async function setCartItemCount(url, csrf, data) {
     })
         .then(data => {
             alert(data.text);
+            calcCart();
         })
         .catch((error) => {
             alert('Что-то пошло не так...');
@@ -45,5 +46,6 @@ setCartItemCountForms.forEach(form => {
 
     })
 });
+
 
 

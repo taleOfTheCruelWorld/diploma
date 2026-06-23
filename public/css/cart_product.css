@@ -21,7 +21,7 @@
     display: flex;
     flex-flow: row wrap;
     gap: 30px;
-    box-shadow: 1px 1px 4px var(--color2);
+    box-shadow: 1px 1px 4px #424242;
     padding: 10px;
     border-radius: 10px;
 }
@@ -74,7 +74,7 @@
     align-items: center;
     gap: 10px;
     width: fit-content;
-    box-shadow: 1px 1px 4px var(--color2);
+    box-shadow: 1px 1px 4px #424242;
     padding: 20px;
     border-radius: 10px;
 }

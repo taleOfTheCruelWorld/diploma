@@ -55,12 +55,12 @@ function checkCart() {
 }
 
 function calcCart() {
-    const prices = document.querySelectorAll('.price .value');
+    const items = document.querySelectorAll('.cart-items .product .actions');
 
     let result = 0;
 
-    prices.forEach(el => {
-        result += +el.textContent;
+    items.forEach(el => {
+        result += +el.querySelector('.price .value').textContent * el.querySelector('.set-cart-item-count_form .count').value;
     });
 
     document.querySelector('.total-cost').innerHTML = `Итого: <strong>${result}</strong> Руб.`
