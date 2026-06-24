@@ -9,7 +9,7 @@
             </div>
             <div class="input_div">
                 <label for="">Единица измерения</label>
-                <input type="text" name="units">
+                <input type="text" name="units" placeholder="Необязательно">
             </div>
             <div class="input_div">
                 <label for="">Тип</label>

@@ -10,7 +10,7 @@
             </div>
             <div class="input_div">
                 <label for="">Единица измерения</label>
-                <input type="text" name="units" value="{{ $current_property->units }}">
+                <input type="text" name="units" value="{{ $current_property->units }}" placeholder="Необязательно">
             </div>
             <div class="input_div">
                 <label for="">Тип</label>

@@ -23,7 +23,7 @@
             </div>
             <div class="input_div">
                 <label for="">Описание</label>
-                <textarea name="description" value="{{ $current_product->description }}"></textarea>
+                <textarea name="description">{{ $current_product->description }}</textarea>
             </div>
             <div class="input_div">
                 <label for="">Количество</label>
