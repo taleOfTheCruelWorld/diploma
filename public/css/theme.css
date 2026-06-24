@@ -148,6 +148,7 @@ body footer .column {
     gap: 10px;
     justify-content: center;
     max-width: 300px;
+    flex: 1;
 }
 
 body footer .column .title {
